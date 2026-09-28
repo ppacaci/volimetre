@@ -19,14 +19,14 @@ header{margin-bottom:46px}
 .fieldsplit{display:grid;grid-template-columns:26px auto 26px;border:1px solid var(--line);background:#fff;border-radius:9px;overflow:hidden}
 .fieldzone,.fieldcenter{border:0;background:#fff;cursor:pointer;padding:0}
 .fieldzone{font-size:15px;font-weight:700;line-height:1;opacity:.42;transition:background .15s ease,opacity .15s ease}
-.fieldzone.minus{background:rgba(198,40,40,.065);color:#9f4b4b}
-.fieldzone.plus{background:rgba(22,128,60,.065);color:#4f855f}
-.fieldzone.minus:hover{background:rgba(198,40,40,.13);opacity:.9}
-.fieldzone.plus:hover{background:rgba(22,128,60,.13);opacity:.9}
+.fieldzone.minus{background:rgba(198,40,40,.095);color:#964343}
+.fieldzone.plus{background:rgba(22,128,60,.095);color:#447d54}
+.fieldzone.minus:hover{background:rgba(198,40,40,.17);opacity:.95}
+.fieldzone.plus:hover{background:rgba(22,128,60,.17);opacity:.95}
 .fieldcenter{padding:9px 8px;font-size:13px;font-weight:600;white-space:nowrap}
 .fieldcenter.active,.fieldcenter:hover{background:#fafafa}
-.fieldzone.minus:active{background:rgba(198,40,40,.18)}
-.fieldzone.plus:active{background:rgba(22,128,60,.18)}
+.fieldzone.minus:active{background:rgba(198,40,40,.22)}
+.fieldzone.plus:active{background:rgba(22,128,60,.22)}
 .choice,.add{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer}
 .panel{display:none;margin-top:9px}
 .panel.open{display:block}
