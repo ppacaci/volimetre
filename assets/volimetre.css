@@ -104,3 +104,53 @@ footer a{color:inherit}
   .fieldlocked{width:100%;min-height:48px;font-size:15px;padding:12px 8px}
   .amount-links{margin-top:16px;gap:7px 9px}
 }
+
+.cost-estimate{
+  margin-top:16px;
+  padding-top:14px;
+  border-top:1px solid var(--line);
+  color:var(--muted);
+}
+.cost-estimate summary{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  cursor:pointer;
+  list-style:none;
+  font-size:12px;
+  user-select:none;
+}
+.cost-estimate summary::-webkit-details-marker{display:none}
+.cost-estimate summary strong{
+  color:#555;
+  font-size:13px;
+  font-weight:700;
+}
+.cost-estimate summary::after{
+  content:'›';
+  margin-left:2px;
+  font-size:17px;
+  line-height:1;
+  transition:transform .15s ease;
+}
+.cost-estimate[open] summary::after{transform:rotate(90deg)}
+.cost-lines{
+  margin-top:11px;
+  padding-top:10px;
+  border-top:1px solid var(--line);
+}
+.cost-lines > div{
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  padding:4px 0;
+  font-size:12px;
+}
+.cost-lines strong{color:#555;font-weight:600}
+.cost-lines p{
+  margin:9px 0 0;
+  font-size:11px;
+  line-height:1.5;
+  color:var(--muted);
+}
