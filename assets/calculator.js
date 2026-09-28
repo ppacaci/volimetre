@@ -18,6 +18,12 @@ function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currenc
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
 function pay(p,r,n){var mr=r/100;if(mr===0)return p/n;var z=Math.pow(1+mr,n);return p*mr*z/(z-1)}
+function mortgageCosts(a){
+  var allocation=a*.005;
+  var appraisal=28202;
+  var mortgage=3600;
+  return {allocation:allocation,appraisal:appraisal,mortgage:mortgage,total:allocation+appraisal+mortgage};
+}
 function btn(text,cls){var b=document.createElement('button');b.type='button';b.textContent=text;b.className=cls||'choice';return b}
 function uniq(arr){return Array.from(new Set(arr.filter(function(v){return Number.isFinite(v)&&v>0}).map(function(v){return +v.toFixed(2)}))).sort(function(a,b){return a-b})}
 
@@ -138,6 +144,21 @@ function render(){
         p.appendChild(choiceRow);
       }
     });
+
+    if(mode==='mortgage' && i===0){
+      var mc=mortgageCosts(s.a);
+      var costs=document.createElement('details');
+      costs.className='cost-estimate';
+      costs.innerHTML=
+        '<summary><span>Tahmini ek masraf</span><strong>~'+money(mc.total)+'</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Tahsis (~%0,5)</span><strong>'+money(mc.allocation)+'</strong></div>'+
+          '<div><span>Ekspertiz (referans)</span><strong>'+money(mc.appraisal)+'</strong></div>'+
+          '<div><span>İpotek tesis (referans)</span><strong>'+money(mc.mortgage)+'</strong></div>'+
+          '<p>Sigorta, tapu harcı ve duruma göre uygulanabilecek vergiler dahil değildir. Ekspertiz ve ipotek tutarları örnek referanstır.</p>'+
+        '</div>';
+      c.appendChild(costs);
+    }
 
     if(i){
       var m=data[0],mq=pay(m.a,m.r,m.t),mt=mq*m.t;
