@@ -12,6 +12,7 @@ var initial={
 var data=[initial];
 var openPanel=null;
 var lockAmount=app.dataset.lockAmount==='true';
+var mode=app.dataset.mode||'default';
 
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n))}
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
@@ -21,12 +22,14 @@ function btn(text,cls){var b=document.createElement('button');b.type='button';b.
 function uniq(arr){return Array.from(new Set(arr.filter(function(v){return Number.isFinite(v)&&v>0}).map(function(v){return +v.toFixed(2)}))).sort(function(a,b){return a-b})}
 
 function amountChoices(v){
-  var presets=[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
+  var presets=mode==='mortgage'
+    ?[500000,750000,1000000,1500000,2000000,2500000,3000000,5000000,7500000,10000000]
+    :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
   presets.push(v);
   return uniq(presets).sort(function(a,b){return a-b});
 }
 function termChoices(v){
-  var presets=[6,12,18,24,36,48,60];
+  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:[6,12,18,24,36,48,60];
   presets.push(v);
   return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1}).sort(function(a,b){return a-b});
 }
@@ -34,6 +37,11 @@ function rateChoices(v){return uniq([Math.max(0,v-.50),Math.max(0,v-.25),v,v+.25
 
 function amountStep(v,dir){
   var x=dir<0?Math.max(0,v-.001):v;
+  if(mode==='mortgage'){
+    if(x<1000000)return 50000;
+    if(x<5000000)return 100000;
+    return 250000;
+  }
   if(x<10000)return 500;
   if(x<25000)return 1000;
   if(x<50000)return 2500;
@@ -83,7 +91,8 @@ function render(){
           var st=amountStep(s.a,dir);
           s.a=Math.max(5000,s.a+dir*st);
         }else if(x.k==='t'){
-          s.t=Math.max(1,s.t+dir);
+          var maxTerm=mode==='mortgage'?120:999;
+          s.t=Math.max(1,Math.min(maxTerm,s.t+dir));
         }else{
           s.r=Math.max(0,+(s.r+dir*.05).toFixed(2));
         }
