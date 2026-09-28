@@ -4,7 +4,22 @@ body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-appl
 main{width:min(620px,calc(100% - 32px));margin:auto;padding:44px 0}
 button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
 a{color:inherit}
-.brand{font-size:24px;font-weight:800;letter-spacing:-.4px}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-.4px
+}
+.brand::before{
+  content:"";
+  display:block;
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  background:url("/assets/volimetre-mark.svg") center/contain no-repeat
+}
 .brand a{text-decoration:none}
 .tag,.total,.diff,footer{color:var(--muted)}
 header{margin-bottom:46px}
