@@ -57,14 +57,15 @@ footer a{color:inherit}
   }
   .fieldsplit{
     width:100%;
-    grid-template-columns:36px minmax(0,1fr) 36px;
+    grid-template-columns:42px minmax(0,1fr) 42px;
     min-height:48px;
   }
   .fieldcenter{
     width:100%;
     padding:12px 8px;
+    font-size:15px;
   }
-  .fieldzone{font-size:18px}
+  .fieldzone{font-size:19px}
   .choice{min-height:40px;padding:9px 11px}
   .add{min-width:44px;min-height:44px;padding:8px 12px}
   .remove{min-width:40px;min-height:40px}
