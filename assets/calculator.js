@@ -17,7 +17,23 @@ var mode=app.dataset.mode||'default';
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n))}
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
-function pay(p,r,n){var mr=r/100;if(mr===0)return p/n;var z=Math.pow(1+mr,n);return p*mr*z/(z-1)}
+function pay(p,r,n){
+  var mr=r/100;
+  if(mode==='consumer')mr*=1.30;
+  if(mr===0)return p/n;
+  var z=Math.pow(1+mr,n);
+  return p*mr*z/(z-1);
+}
+function consumerMaxTerm(a){
+  if(a<=125000)return 36;
+  if(a<=250000)return 24;
+  return 12;
+}
+function consumerCosts(a){
+  var allocation=a*.005;
+  var allocationTax=allocation*.15;
+  return {allocation:allocation,allocationTax:allocationTax,total:allocation+allocationTax};
+}
 function mortgageCosts(a){
   var allocation=a*.005;
   var appraisal=28202;
@@ -30,14 +46,17 @@ function uniq(arr){return Array.from(new Set(arr.filter(function(v){return Numbe
 function amountChoices(v){
   var presets=mode==='mortgage'
     ?[500000,750000,1000000,1500000,2000000,2500000,3000000,5000000,7500000,10000000]
-    :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
+    :mode==='consumer'
+      ?[10000,25000,50000,75000,100000,125000,150000,200000,250000,300000,500000]
+      :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
   presets.push(v);
   return uniq(presets).sort(function(a,b){return a-b});
 }
-function termChoices(v){
-  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:[6,12,18,24,36,48,60];
+function termChoices(v,a){
+  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:mode==='consumer'?[6,12,18,24,36]:[6,12,18,24,36,48,60];
+  if(mode==='consumer')presets=presets.filter(function(x){return x<=consumerMaxTerm(a)});
   presets.push(v);
-  return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1}).sort(function(a,b){return a-b});
+  return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1&&(mode!=='consumer'||x<=consumerMaxTerm(a))}).sort(function(a,b){return a-b});
 }
 function rateChoices(v){return uniq([Math.max(0,v-.50),Math.max(0,v-.25),v,v+.25,v+.50])}
 
@@ -73,7 +92,7 @@ function render(){
     var f=c.querySelector('.fields'),p=c.querySelector('.panel');
     var fields=[
       {k:'a',text:money(s.a),label:'Tutar',vals:amountChoices(s.a),fmt:shortMoney},
-      {k:'t',text:s.t+' AY',label:'Vade',vals:termChoices(s.t),fmt:function(v){return v+' AY'}},
+      {k:'t',text:s.t+' AY',label:'Vade',vals:termChoices(s.t,s.a),fmt:function(v){return v+' AY'}},
       {k:'r',text:rateText(s.r),label:'Aylık faiz',vals:rateChoices(s.r),fmt:rateText}
     ];
 
@@ -96,8 +115,9 @@ function render(){
         if(x.k==='a'){
           var st=amountStep(s.a,dir);
           s.a=Math.max(5000,s.a+dir*st);
+          if(mode==='consumer')s.t=Math.min(s.t,consumerMaxTerm(s.a));
         }else if(x.k==='t'){
-          var maxTerm=mode==='mortgage'?120:999;
+          var maxTerm=mode==='mortgage'?120:mode==='consumer'?consumerMaxTerm(s.a):999;
           s.t=Math.max(1,Math.min(maxTerm,s.t+dir));
         }else{
           s.r=Math.max(0,+(s.r+dir*.05).toFixed(2));
@@ -138,12 +158,32 @@ function render(){
         x.vals.forEach(function(v){
           var b=btn(x.fmt(v));
           if(Math.abs(v-s[x.k])<.001)b.classList.add('selected');
-          b.onclick=function(e){e.stopPropagation();s[x.k]=v;openPanel=null;render()};
+          b.onclick=function(e){
+            e.stopPropagation();
+            s[x.k]=v;
+            if(mode==='consumer'&&x.k==='a')s.t=Math.min(s.t,consumerMaxTerm(s.a));
+            openPanel=null;
+            render();
+          };
           choiceRow.appendChild(b);
         });
         p.appendChild(choiceRow);
       }
     });
+
+    if(mode==='consumer' && i===0){
+      var cc=consumerCosts(s.a);
+      var consumerCostsBox=document.createElement('details');
+      consumerCostsBox.className='cost-estimate';
+      consumerCostsBox.innerHTML=
+        '<summary><span>Tahmini ek masraf</span><strong>~'+money(cc.total)+'</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Tahsis (%0,5)</span><strong>'+money(cc.allocation)+'</strong></div>'+
+          '<div><span>Tahsis BSMV (%15)</span><strong>'+money(cc.allocationTax)+'</strong></div>'+
+          '<p>Aylık taksit hesabında faiz üzerinden %15 BSMV ve %15 KKDF dikkate alınır. Hayat sigortası dahil değildir.</p>'+
+        '</div>';
+      c.appendChild(consumerCostsBox);
+    }
 
     if(mode==='mortgage' && i===0){
       var mc=mortgageCosts(s.a);
