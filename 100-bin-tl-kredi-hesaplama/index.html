@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>100 Bin TL Kredi Hesaplama | Volimetre</title>
+<meta name="description" content="100.000 TL kredi için aylık taksit ve toplam geri ödeme tutarını vade ve faiz oranına göre hızlıca hesaplayın. 12, 24, 36 ve 48 ay örneklerini karşılaştırın.">
+<link rel="canonical" href="https://volimetre.com.tr/100-bin-tl-kredi-hesaplama/">
+<meta name="robots" content="index,follow">
+<style>
+:root{--bg:#f7f7f5;--card:#fff;--text:#151515;--muted:#777;--line:#e7e7e3;--good:#16803c;--bad:#c62828}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{width:min(620px,calc(100% - 32px));margin:auto;padding:44px 0}
+button{font:inherit;color:inherit;-webkit-tap-highlight-color:transparent}
+a{color:inherit}
+.brand{font-size:24px;font-weight:800;letter-spacing:-.4px}.brand a{text-decoration:none}
+.tag,.total,.diff,.intro,.small,footer{color:var(--muted)}
+header{margin-bottom:34px}.tag{margin-top:3px}
+.hero{margin-bottom:24px}
+h1{font-size:28px;line-height:1.12;letter-spacing:-.6px;margin:0 0 8px}
+.intro{font-size:14px;line-height:1.55;margin:0;max-width:560px}
+.card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:10px}
+.main{padding:28px 22px}
+.label{font-size:11px;margin-bottom:8px;color:var(--muted);letter-spacing:.02em}
+.monthly{font-size:32px;font-weight:800;letter-spacing:-1px}
+.main .monthly{font-size:42px}
+.total{margin:5px 0 16px}
+.fields{display:flex;gap:8px;flex-wrap:wrap;align-items:stretch}
+.fieldsplit{display:grid;grid-template-columns:26px auto 26px;border:1px solid var(--line);background:#fff;border-radius:9px;overflow:hidden}
+.fieldzone,.fieldcenter{border:0;background:#fff;cursor:pointer;padding:0}
+.fieldzone{font-size:15px;font-weight:700;line-height:1;opacity:.42;transition:background .15s ease,opacity .15s ease}
+.fieldzone.minus{background:rgba(198,40,40,.035);color:#a85d5d}
+.fieldzone.plus{background:rgba(22,128,60,.035);color:#568d68}
+.fieldzone.minus:hover{background:rgba(198,40,40,.09);opacity:.8}
+.fieldzone.plus:hover{background:rgba(22,128,60,.09);opacity:.8}
+.fieldcenter{padding:9px 8px;font-size:13px;font-weight:600;white-space:nowrap}
+.fieldcenter.active,.fieldcenter:hover{background:#fafafa}
+.fieldzone.minus:active{background:rgba(198,40,40,.14)}
+.fieldzone.plus:active{background:rgba(22,128,60,.14)}
+.choice,.add{border:1px solid var(--line);background:#fff;border-radius:9px;cursor:pointer}
+.panel{display:none;margin-top:9px}.panel.open{display:block}
+.panel-title{font-size:10px;color:var(--muted);margin:2px 0 6px}
+.panel-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center}
+.choice{font-size:12px;padding:7px 9px}
+.choice.selected{background:#151515;color:#fff;border-color:#151515}
+.diff{font-size:11px;margin-top:10px;line-height:1.45}
+.remove{position:absolute;right:9px;top:7px;border:0;background:none;color:#999;font-size:18px;cursor:pointer;padding:5px 8px}
+.addbox{text-align:center;margin:18px 0 22px}
+.add{border:0;background:transparent;color:#8a8a8a;padding:4px 10px;font-size:22px;line-height:1;border-radius:0}
+.add:hover{color:#555}.add:active{transform:translateY(1px)}
+.addpanel{display:none;margin-top:12px}.addpanel.open{display:block}
+.altrow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:7px;align-items:center;margin:7px auto;max-width:560px}
+.altrow .choice{opacity:.75;white-space:nowrap}
+.content{margin-top:42px}
+.content section{margin:0 0 34px}
+.content h2{font-size:19px;letter-spacing:-.25px;margin:0 0 10px}
+.content p{font-size:14px;line-height:1.65;margin:0 0 10px;color:#4f4f4f}
+.tablebox{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:right;padding:12px 14px;border-bottom:1px solid var(--line)}
+th:first-child,td:first-child{text-align:left}
+th{font-size:11px;color:var(--muted);font-weight:600;background:#fbfbfa}
+tr:last-child td{border-bottom:0}
+.faq{border-top:1px solid var(--line);padding-top:14px;margin-top:14px}
+.faq h3{font-size:14px;margin:0 0 5px}
+.faq p{margin:0}
+.notice{font-size:12px;line-height:1.55;color:var(--muted);padding:14px 0 0}
+.back{font-size:12px;color:var(--muted);text-decoration:none}
+.back:hover{text-decoration:underline}
+footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;text-align:center}
+@media(max-width:520px){
+  main{width:min(100% - 20px,620px);padding-top:28px}
+  header{margin-bottom:28px}
+  h1{font-size:25px}
+  .main .monthly{font-size:36px}
+  .altrow{gap:4px}
+  .altrow .choice{font-size:11px;padding:7px 4px}
+  th,td{padding:11px 9px;font-size:12px}
+}
+</style>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"100 bin TL kredinin aylık taksiti ne kadar?",
+      "acceptedAnswer":{"@type":"Answer","text":"Aylık taksit, seçilen vade ve aylık faiz oranına göre değişir. Volimetre üzerinde tutar, vade ve faiz oranını değiştirerek yaklaşık taksit tutarını anında görebilirsiniz."}
+    },
+    {
+      "@type":"Question",
+      "name":"Vade uzadıkça aylık taksit düşer mi?",
+      "acceptedAnswer":{"@type":"Answer","text":"Genellikle vade uzadıkça aylık taksit azalır; ancak toplam geri ödeme artabilir."}
+    },
+    {
+      "@type":"Question",
+      "name":"Volimetre sonucu banka teklifinin aynısı mıdır?",
+      "acceptedAnswer":{"@type":"Answer","text":"Hayır. Sonuç yaklaşık hesaplamadır. Banka, kredi türü, vergi, ücret ve diğer masraflara göre gerçek ödeme planı farklı olabilir."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+<header>
+  <div class="brand"><a href="/">volimetre</a></div>
+  <div class="tag">Kredi hesaplamanın en kısa yolu.</div>
+</header>
+
+<div class="hero">
+  <h1>100 Bin TL Kredi Hesaplama</h1>
+  <p class="intro">100.000 TL kredi için aylık taksiti ve toplam geri ödemeyi vade ile aylık faiz oranını değiştirerek hesaplayın.</p>
+</div>
+
+<div id="app"></div>
+
+<div class="content">
+  <section>
+    <h2>100.000 TL kredi ne kadar?</h2>
+    <p>Aşağıdaki örnekler aylık <strong>%2,99</strong> faiz oranı varsayımıyla hesaplanmıştır. Vade uzadıkça aylık taksit azalırken toplam geri ödeme yükselir.</p>
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Vade</th><th>Aylık taksit</th><th>Toplam ödeme</th></tr></thead>
+        <tbody>
+          <tr><td>12 ay</td><td>₺10.040</td><td>₺120.483</td></tr>
+          <tr><td>24 ay</td><td>₺5.898</td><td>₺141.561</td></tr>
+          <tr><td>36 ay</td><td>₺4.574</td><td>₺164.648</td></tr>
+          <tr><td>48 ay</td><td>₺3.950</td><td>₺189.623</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="notice">Bu tablo yalnızca karşılaştırma amaçlı örnek hesaplamadır; güncel banka teklifi değildir.</div>
+  </section>
+
+  <section>
+    <h2>100 bin TL kredi hesabı nasıl değişir?</h2>
+    <p>Kredi hesabında üç temel değer vardır: çekilen tutar, vade ve aylık faiz oranı. Aynı 100.000 TL için vade uzatıldığında aylık ödeme genellikle düşer; buna karşılık faiz daha uzun süre işlendiği için toplam geri ödeme artabilir.</p>
+    <p>Yukarıdaki hesaplayıcıda değerlerin sol ve sağ taraflarına dokunarak küçük adımlarla, orta bölümüne dokunarak doğrudan seçenekler arasından değişiklik yapabilirsiniz.</p>
+  </section>
+
+  <section>
+    <h2>Sık sorulanlar</h2>
+    <div class="faq">
+      <h3>100 bin TL kredinin aylık taksiti ne kadar?</h3>
+      <p>Tek bir sabit taksit yoktur. Taksit, vade ve aylık faiz oranına göre değişir. Hesaplayıcıdaki oranı kendi teklifinize göre ayarlayabilirsiniz.</p>
+    </div>
+    <div class="faq">
+      <h3>24 ay mı, 36 ay mı daha avantajlı?</h3>
+      <p>Daha uzun vade aylık ödemeyi düşürebilir fakat toplam geri ödemeyi artırabilir. İki vadeyi yukarıdaki karşılaştırma özelliğiyle yan yana görebilirsiniz.</p>
+    </div>
+    <div class="faq">
+      <h3>Hesaplanan tutar kesin midir?</h3>
+      <p>Hayır. Volimetre yaklaşık ödeme hesabı yapar. Bankanın uyguladığı vergi, ücret, sigorta veya kredi türüne özel koşullar nedeniyle gerçek ödeme planı farklı olabilir.</p>
+    </div>
+  </section>
+
+  <a class="back" href="/">← Ana kredi hesaplayıcıya dön</a>
+</div>
+
+<footer>volimetre · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer>
+</main>
+
+<script>
+(function(){
+'use strict';
+var data=[{a:100000,t:24,r:2.99}];
+var openPanel=null;
+function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n))}
+function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
+function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
+function pay(p,r,n){var mr=r/100;if(mr===0)return p/n;var z=Math.pow(1+mr,n);return p*mr*z/(z-1)}
+function btn(text,cls){var b=document.createElement('button');b.type='button';b.textContent=text;b.className=cls||'choice';return b}
+function uniq(arr){return Array.from(new Set(arr.filter(function(v){return Number.isFinite(v)&&v>0}).map(function(v){return +v.toFixed(2)}))).sort(function(a,b){return a-b})}
+function amountChoices(v){var presets=[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];presets.push(v);return uniq(presets).sort(function(a,b){return a-b})}
+function termChoices(v){var presets=[6,12,18,24,36,48,60];presets.push(v);return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1}).sort(function(a,b){return a-b})}
+function rateChoices(v){return uniq([Math.max(0,v-.50),Math.max(0,v-.25),v,v+.25,v+.50])}
+function amountStep(v,dir){var x=dir<0?Math.max(0,v-.001):v;if(x<10000)return 500;if(x<25000)return 1000;if(x<50000)return 2500;if(x<100000)return 5000;if(x<250000)return 10000;return 25000}
+function render(){
+  var app=document.getElementById('app');app.innerHTML='';
+  data.forEach(function(s,i){
+    var q=pay(s.a,s.r,s.t),total=q*s.t,c=document.createElement('section');c.className='card '+(i?'':'main');
+    c.innerHTML=(i?'<button type="button" class="remove" aria-label="Karşılaştırmayı kaldır">×</button>':'')+
+      '<div class="label">'+(i?'KARŞILAŞTIRMA '+i:'ANA SONUÇ')+'</div>'+
+      '<div class="monthly">'+money(q)+' / ay</div>'+
+      '<div class="total">Toplam '+money(total)+'</div>'+
+      '<div class="fields"></div><div class="panel"></div>';
+    if(i)c.querySelector('.remove').onclick=function(){data.splice(i,1);openPanel=null;render()};
+    var f=c.querySelector('.fields'),p=c.querySelector('.panel');
+    var fields=[
+      {k:'a',text:money(s.a),label:'Tutar',vals:amountChoices(s.a),fmt:shortMoney},
+      {k:'t',text:s.t+' AY',label:'Vade',vals:termChoices(s.t),fmt:function(v){return v+' AY'}},
+      {k:'r',text:rateText(s.r),label:'Aylık faiz',vals:rateChoices(s.r),fmt:rateText}
+    ];
+    fields.forEach(function(x){
+      var id=i+':'+x.k,split=document.createElement('div');split.className='fieldsplit';
+      function nudge(dir){
+        if(x.k==='a'){var st=amountStep(s.a,dir);s.a=Math.max(5000,s.a+dir*st)}
+        else if(x.k==='t'){s.t=Math.max(1,s.t+dir)}
+        else{s.r=Math.max(0,+(s.r+dir*.05).toFixed(2))}
+        openPanel=null;render();
+      }
+      var left=btn('‹','fieldzone minus');left.setAttribute('aria-label',x.label+' azalt');left.onclick=function(e){e.stopPropagation();nudge(-1)};
+      var center=btn(x.text,'fieldcenter');center.setAttribute('aria-label',x.label+' seçeneklerini aç');if(openPanel===id)center.classList.add('active');center.onclick=function(e){e.stopPropagation();openPanel=openPanel===id?null:id;render()};
+      var right=btn('›','fieldzone plus');right.setAttribute('aria-label',x.label+' artır');right.onclick=function(e){e.stopPropagation();nudge(1)};
+      split.appendChild(left);split.appendChild(center);split.appendChild(right);f.appendChild(split);
+      if(openPanel===id){
+        p.classList.add('open');
+        var title=document.createElement('div');title.className='panel-title';title.textContent=x.label;p.appendChild(title);
+        var row=document.createElement('div');row.className='panel-row';
+        x.vals.forEach(function(v){var b=btn(x.fmt(v));if(Math.abs(v-s[x.k])<.001)b.classList.add('selected');b.onclick=function(e){e.stopPropagation();s[x.k]=v;openPanel=null;render()};row.appendChild(b)});
+        p.appendChild(row);
+      }
+    });
+    if(i){
+      var m=data[0],mq=pay(m.a,m.r,m.t),mt=mq*m.t,md=q-mq,td=total-mt,d=document.createElement('div');d.className='diff';
+      d.textContent='Ana hesaba göre: aylık '+(md>=0?'+':'−')+money(Math.abs(md))+' · toplam '+(td>=0?'+':'−')+money(Math.abs(td));
+      d.style.color=s.a===m.a?(td<0?'var(--good)':td>0?'var(--bad)':'var(--muted)'):'var(--muted)';c.appendChild(d);
+    }
+    app.appendChild(c);
+  });
+  var main=data[0],box=document.createElement('div');box.className='addbox',plus=btn('+','add');plus.setAttribute('aria-label','Karşılaştırma ekle'),panel=document.createElement('div');panel.className='addpanel';
+  function row(){var r=document.createElement('div');r.className='altrow';panel.appendChild(r);return r}
+  function alt(parent,text,obj){var b=btn(text);b.onclick=function(e){e.stopPropagation();data.push(obj);render()};parent.appendChild(b)}
+  var ar=row(),tr=row(),rr=row();
+  [-20000,-10000,-5000,5000,10000,20000].forEach(function(d){var v=Math.max(5000,main.a+d);alt(ar,shortMoney(v),{a:v,t:main.t,r:main.r})});
+  [-6,-3,-1,1,3,6].forEach(function(d){var v=main.t+d;if(v>0)alt(tr,v+' AY',{a:main.a,t:v,r:main.r})});
+  [-.30,-.20,-.10,.10,.20,.30].forEach(function(d){var v=+(main.r+d).toFixed(2);if(v>=0)alt(rr,rateText(v),{a:main.a,t:main.t,r:v})});
+  plus.onclick=function(e){e.stopPropagation();panel.classList.add('open');plus.style.display='none'};
+  panel.onclick=function(e){e.stopPropagation()};
+  box.appendChild(plus);box.appendChild(panel);app.appendChild(box);
+  document.onclick=function(){if(openPanel!==null){openPanel=null;render();return}if(panel.classList.contains('open')){panel.classList.remove('open');plus.style.display=''}};
+}
+render();
+})();
+</script>
+</body>
+</html>
