@@ -49,7 +49,6 @@ function render(){
     var c=document.createElement('section');
     c.className='card '+(i?'':'main');
     c.innerHTML=(i?'<button type="button" class="remove" aria-label="Karşılaştırmayı kaldır">×</button>':'')+
-      '<div class="label">'+(i?'KARŞILAŞTIRMA '+i:'ANA SONUÇ')+'</div>'+
       '<div class="monthly">'+money(q)+' / ay</div>'+
       '<div class="total">Toplam '+money(total)+'</div>'+
       '<div class="fields"></div><div class="panel"></div>';
