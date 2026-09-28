@@ -11,6 +11,7 @@ var initial={
 };
 var data=[initial];
 var openPanel=null;
+var lockAmount=app.dataset.lockAmount==='true';
 
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n))}
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
@@ -64,6 +65,16 @@ function render(){
 
     fields.forEach(function(x){
       var id=i+':'+x.k;
+
+      if(lockAmount && x.k==='a'){
+        var locked=document.createElement('div');
+        locked.className='fieldlocked';
+        locked.textContent=x.text;
+        locked.setAttribute('aria-label','Tutar sabit: '+x.text);
+        f.appendChild(locked);
+        return;
+      }
+
       var split=document.createElement('div');
       split.className='fieldsplit';
 
