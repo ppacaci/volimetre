@@ -46,4 +46,11 @@ footer a{color:inherit}
   main{width:min(100% - 20px,620px);padding-top:28px}
   header{margin-bottom:30px}
   .main .monthly{font-size:36px}
-    }
+  .fields{gap:6px}
+  .fieldsplit{grid-template-columns:32px auto 32px;min-height:44px}
+  .fieldcenter{padding:11px 9px}
+  .fieldzone{font-size:17px}
+  .choice{min-height:40px;padding:9px 11px}
+  .add{min-width:44px;min-height:44px;padding:8px 12px}
+  .remove{min-width:40px;min-height:40px}
+}
