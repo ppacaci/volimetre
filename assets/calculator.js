@@ -138,27 +138,21 @@ function render(){
 
   var plus=btn('+','add');
   plus.setAttribute('aria-label','Karşılaştırma ekle');
+  plus.onclick=function(e){
+    e.stopPropagation();
+    data.push({a:main.a,t:main.t,r:main.r});
+    openPanel=null;
+    render();
+  };
 
-  var panel=document.createElement('div');
-  panel.className='addpanel';
-
-  function row(){var r=document.createElement('div');r.className='altrow';panel.appendChild(r);return r}
-  function alt(parent,text,obj){var b=btn(text);b.onclick=function(e){e.stopPropagation();data.push(obj);render()};parent.appendChild(b)}
-
-  var ar=row(),tr=row(),rr=row();
-  [-20000,-10000,-5000,5000,10000,20000].forEach(function(d){var v=Math.max(5000,main.a+d);alt(ar,shortMoney(v),{a:v,t:main.t,r:main.r})});
-  [-6,-3,-1,1,3,6].forEach(function(d){var v=main.t+d;if(v>0)alt(tr,v+' AY',{a:main.a,t:v,r:main.r})});
-  [-.30,-.20,-.10,.10,.20,.30].forEach(function(d){var v=+(main.r+d).toFixed(2);if(v>=0)alt(rr,rateText(v),{a:main.a,t:main.t,r:v})});
-
-  plus.onclick=function(e){e.stopPropagation();panel.classList.add('open');plus.style.display='none'};
-  panel.onclick=function(e){e.stopPropagation()};
   box.appendChild(plus);
-  box.appendChild(panel);
   app.appendChild(box);
 
   document.onclick=function(){
-    if(openPanel!==null){openPanel=null;render();return}
-    if(panel.classList.contains('open')){panel.classList.remove('open');plus.style.display=''}
+    if(openPanel!==null){
+      openPanel=null;
+      render();
+    }
   };
 }
 
