@@ -19,7 +19,8 @@ function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
 function pay(p,r,n){
   var mr=r/100;
-  if(mode==='consumer'||mode==='vehicle')mr*=1.30;
+  if(mode==='consumer'||mode==='vehicle'||mode==='togg')mr*=1.30;
+  else if(mode==='business')mr*=1.05;
   if(mr===0)return p/n;
   var z=Math.pow(1+mr,n);
   return p*mr*z/(z-1);
@@ -40,6 +41,11 @@ function vehicleCosts(a){
   var pledge=350.92;
   return {allocation:allocation,allocationTax:allocationTax,pledge:pledge,total:allocation+allocationTax+pledge};
 }
+function businessCosts(a){
+  var service=a*.005;
+  var serviceTax=service*.05;
+  return {service:service,serviceTax:serviceTax,total:service+serviceTax};
+}
 function mortgageCosts(a){
   var allocation=a*.005;
   var appraisal=28202;
@@ -56,12 +62,22 @@ function amountChoices(v){
       ?[10000,25000,50000,75000,100000,125000,150000,200000,250000,300000,500000]
       :mode==='vehicle'
         ?[25000,50000,75000,100000,150000,200000,250000,300000,500000]
-        :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
+        :mode==='togg'
+          ?[500000,600000,700000,800000,900000,1300000,1500000,1700000,2325000,3050000]
+          :mode==='business'||mode==='esnaf-kefalet'
+            ?[50000,100000,250000,500000,750000,1000000,1500000]
+            :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
   presets.push(v);
   return uniq(presets).sort(function(a,b){return a-b});
 }
 function termChoices(v,a){
-  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:mode==='consumer'?[6,12,18,24,36]:mode==='vehicle'?[12,24,36,48]:[6,12,18,24,36,48,60];
+  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]
+    :mode==='consumer'?[6,12,18,24,36]
+    :mode==='vehicle'?[12,24,36,48]
+    :mode==='togg'?[10,12,24,36,48]
+    :mode==='esnaf-kefalet'?[12,24,36,48]
+    :mode==='business'?[6,12,18,24,36,48,60]
+    :[6,12,18,24,36,48,60];
   if(mode==='consumer')presets=presets.filter(function(x){return x<=consumerMaxTerm(a)});
   presets.push(v);
   return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1&&(mode!=='consumer'||x<=consumerMaxTerm(a))}).sort(function(a,b){return a-b});
@@ -70,7 +86,7 @@ function rateChoices(v){return uniq([Math.max(0,v-.50),Math.max(0,v-.25),v,v+.25
 
 function amountStep(v,dir){
   var x=dir<0?Math.max(0,v-.001):v;
-  if(mode==='mortgage'){
+  if(mode==='mortgage'||mode==='business'||mode==='esnaf-kefalet'||mode==='togg'){
     if(x<1000000)return 50000;
     if(x<5000000)return 100000;
     return 250000;
@@ -125,7 +141,10 @@ function render(){
           s.a=Math.max(5000,s.a+dir*st);
           if(mode==='consumer')s.t=Math.min(s.t,consumerMaxTerm(s.a));
         }else if(x.k==='t'){
-          var maxTerm=mode==='mortgage'?120:mode==='consumer'?consumerMaxTerm(s.a):mode==='vehicle'?48:999;
+          var maxTerm=mode==='mortgage'?120
+            :mode==='consumer'?consumerMaxTerm(s.a)
+            :(mode==='vehicle'||mode==='togg'||mode==='esnaf-kefalet')?48
+            :999;
           s.t=Math.max(1,Math.min(maxTerm,s.t+dir));
         }else{
           s.r=Math.max(0,+(s.r+dir*.05).toFixed(2));
@@ -178,6 +197,50 @@ function render(){
         p.appendChild(choiceRow);
       }
     });
+
+    if(mode==='business' && i===0){
+      var bc=businessCosts(s.a);
+      var businessCostsBox=document.createElement('details');
+      businessCostsBox.className='cost-estimate';
+      businessCostsBox.innerHTML=
+        '<summary><span>Tahmini banka masrafı</span><strong>~'+money(bc.total)+'</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Örnek kullandırım (~%0,5)</span><strong>'+money(bc.service)+'</strong></div>'+
+          '<div><span>Ücret BSMV (%5)</span><strong>'+money(bc.serviceTax)+'</strong></div>'+
+          '<p>Bu oran yalnızca yaklaşık karşılaştırma içindir. Ticari kredi tahsis/kullandırım ücretleri bankaya ve ürüne göre değişebilir. TL ticari kredi faiz hesabında %5 BSMV dikkate alınır, KKDF uygulanmaz.</p>'+
+        '</div>';
+      c.appendChild(businessCostsBox);
+    }
+
+    if(mode==='esnaf-kefalet' && i===0){
+      var kefaletCostsBox=document.createElement('details');
+      kefaletCostsBox.className='cost-estimate';
+      kefaletCostsBox.innerHTML=
+        '<summary><span>Kooperatif kesintileri</span><strong>Değişken</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Bloke sermaye</span><strong>Kooperatife göre</strong></div>'+
+          '<div><span>Yıllık masraf karşılığı</span><strong>Kooperatife göre</strong></div>'+
+          '<div><span>Risk fonu</span><strong>Kooperatife göre</strong></div>'+
+          '<div><span>Üst kuruluş katılım payı</span><strong>Kooperatife göre</strong></div>'+
+          '<p>ESKKK kefaletli Halkbank kredileri BSMV istisnası kapsamındadır. Kesinti tutarları kooperatif ve kredi dosyasına göre değişebildiği için toplam rakam verilmez.</p>'+
+        '</div>';
+      c.appendChild(kefaletCostsBox);
+    }
+
+    if(mode==='togg' && i===0){
+      var tc=vehicleCosts(s.a);
+      var toggCostsBox=document.createElement('details');
+      toggCostsBox.className='cost-estimate';
+      toggCostsBox.innerHTML=
+        '<summary><span>Tahmini ek masraf</span><strong>~'+money(tc.total)+'</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Tahsis (~%0,5)</span><strong>'+money(tc.allocation)+'</strong></div>'+
+          '<div><span>Tahsis BSMV (%15)</span><strong>'+money(tc.allocationTax)+'</strong></div>'+
+          '<div><span>Rehin tesis (referans)</span><strong>'+money(tc.pledge)+'</strong></div>'+
+          '<p>Kampanya bankasına göre ücretler değişebilir veya bazı kalemler alınmayabilir. Kasko, trafik ve hayat sigortası dahil değildir.</p>'+
+        '</div>';
+      c.appendChild(toggCostsBox);
+    }
 
     if(mode==='consumer' && i===0){
       var cc=consumerCosts(s.a);
