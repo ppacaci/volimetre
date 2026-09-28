@@ -1,5 +1,16 @@
 (function(){
 'use strict';
+function loadVercelAnalytics(){
+  if(window.__volimetreAnalyticsLoaded)return;
+  window.__volimetreAnalyticsLoaded=true;
+  window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};
+  var s=document.createElement('script');
+  s.defer=true;
+  s.src='/_vercel/insights/script.js';
+  document.head.appendChild(s);
+}
+loadVercelAnalytics();
+
 
 var app=document.getElementById('deposit-app');
 if(!app)return;
