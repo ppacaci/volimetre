@@ -19,7 +19,7 @@ function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
 function pay(p,r,n){
   var mr=r/100;
-  if(mode==='consumer')mr*=1.30;
+  if(mode==='consumer'||mode==='vehicle')mr*=1.30;
   if(mr===0)return p/n;
   var z=Math.pow(1+mr,n);
   return p*mr*z/(z-1);
@@ -33,6 +33,12 @@ function consumerCosts(a){
   var allocation=a*.005;
   var allocationTax=allocation*.15;
   return {allocation:allocation,allocationTax:allocationTax,total:allocation+allocationTax};
+}
+function vehicleCosts(a){
+  var allocation=a*.005;
+  var allocationTax=allocation*.15;
+  var pledge=350.92;
+  return {allocation:allocation,allocationTax:allocationTax,pledge:pledge,total:allocation+allocationTax+pledge};
 }
 function mortgageCosts(a){
   var allocation=a*.005;
@@ -48,12 +54,14 @@ function amountChoices(v){
     ?[500000,750000,1000000,1500000,2000000,2500000,3000000,5000000,7500000,10000000]
     :mode==='consumer'
       ?[10000,25000,50000,75000,100000,125000,150000,200000,250000,300000,500000]
-      :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
+      :mode==='vehicle'
+        ?[25000,50000,75000,100000,150000,200000,250000,300000,500000]
+        :[10000,25000,50000,75000,100000,150000,250000,500000,750000,1000000];
   presets.push(v);
   return uniq(presets).sort(function(a,b){return a-b});
 }
 function termChoices(v,a){
-  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:mode==='consumer'?[6,12,18,24,36]:[6,12,18,24,36,48,60];
+  var presets=mode==='mortgage'?[12,24,36,48,60,84,120]:mode==='consumer'?[6,12,18,24,36]:mode==='vehicle'?[12,24,36,48]:[6,12,18,24,36,48,60];
   if(mode==='consumer')presets=presets.filter(function(x){return x<=consumerMaxTerm(a)});
   presets.push(v);
   return uniq(presets).filter(function(x){return Number.isInteger(x)&&x>=1&&(mode!=='consumer'||x<=consumerMaxTerm(a))}).sort(function(a,b){return a-b});
@@ -117,7 +125,7 @@ function render(){
           s.a=Math.max(5000,s.a+dir*st);
           if(mode==='consumer')s.t=Math.min(s.t,consumerMaxTerm(s.a));
         }else if(x.k==='t'){
-          var maxTerm=mode==='mortgage'?120:mode==='consumer'?consumerMaxTerm(s.a):999;
+          var maxTerm=mode==='mortgage'?120:mode==='consumer'?consumerMaxTerm(s.a):mode==='vehicle'?48:999;
           s.t=Math.max(1,Math.min(maxTerm,s.t+dir));
         }else{
           s.r=Math.max(0,+(s.r+dir*.05).toFixed(2));
@@ -183,6 +191,21 @@ function render(){
           '<p>Aylık taksit hesabında faiz üzerinden %15 BSMV ve %15 KKDF dikkate alınır. Hayat sigortası dahil değildir.</p>'+
         '</div>';
       c.appendChild(consumerCostsBox);
+    }
+
+    if(mode==='vehicle' && i===0){
+      var vc=vehicleCosts(s.a);
+      var vehicleCostsBox=document.createElement('details');
+      vehicleCostsBox.className='cost-estimate';
+      vehicleCostsBox.innerHTML=
+        '<summary><span>Tahmini ek masraf</span><strong>~'+money(vc.total)+'</strong></summary>'+
+        '<div class="cost-lines">'+
+          '<div><span>Tahsis (%0,5)</span><strong>'+money(vc.allocation)+'</strong></div>'+
+          '<div><span>Tahsis BSMV (%15)</span><strong>'+money(vc.allocationTax)+'</strong></div>'+
+          '<div><span>Rehin tesis (referans)</span><strong>'+money(vc.pledge)+'</strong></div>'+
+          '<p>Aylık taksit hesabında faiz üzerinden %15 BSMV ve %15 KKDF dikkate alınır. Kasko, trafik ve hayat sigortası dahil değildir.</p>'+
+        '</div>';
+      c.appendChild(vehicleCostsBox);
     }
 
     if(mode==='mortgage' && i===0){
