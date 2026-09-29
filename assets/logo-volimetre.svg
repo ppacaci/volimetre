@@ -1,1 +1,8 @@
-²ø1šYì
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 430 92" role="img" aria-labelledby="title">
+  <title id="title">volimetre</title>
+  <g transform="translate(2 4)">
+    <path d="M10 18c0-5 4-9 9-9h13c4 0 7.5 2.5 8.8 6.2l14.7 42.3c1 2.9 3.8 4.9 6.9 4.9h5.8L51.5 80c-2.1 2.2-5 3.5-8 3.5h-5.2c-4.7 0-8.9-3-10.4-7.5L10.5 27.8A14 14 0 0 1 10 24.3V18z" fill="#15191d"/>
+    <path d="M73 9h38L82.8 55.2c-1.7 2.8-4.7 4.5-8 4.5H61.5L73 9z" fill="#78cf95"/>
+  </g>
+  <text x="124" y="63" fill="#15191d" font-size="58" font-weight="700" font-family="Arial, Helvetica, sans-serif" letter-spacing="-2">volimetre</text>
+</svg>
