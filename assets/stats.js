@@ -43,7 +43,8 @@ function titleFromPath(path){
     '/250-bin-tl-kredi-hesaplama/':'250 Bin TL Kredi Hesaplama',
     '/500-bin-tl-kredi-hesaplama/':'500 Bin TL Kredi Hesaplama',
     '/1-milyon-tl-kredi-hesaplama/':'1 Milyon TL Kredi Hesaplama',
-    '/istatistikler/':'İstatistikler'
+    '/istatistikler/':'İstatistikler',
+    '/sicak-teklifler/':'Sıcak Teklifler'
   };
   return known[path]||path;
 }
