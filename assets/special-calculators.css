@@ -5,6 +5,17 @@
 .tool-field label{font-size:11px;color:var(--muted);font-weight:600}
 .tool-field input,.tool-field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:12px 11px;font:inherit;font-size:14px;color:var(--text)}
 .tool-field input:focus,.tool-field select:focus{outline:1px solid #bdbdb7;border-color:#bdbdb7}
+.step-control{display:grid;grid-template-columns:34px minmax(0,1fr) 34px;border:1px solid var(--line);background:#fff;border-radius:9px;overflow:hidden;min-height:44px}
+.step-control input,.step-control select{width:100%;min-width:0;border:0!important;border-radius:0!important;background:#fff;text-align:center;text-align-last:center;padding:10px 6px!important;font-size:14px;font-weight:600;-moz-appearance:textfield}
+.step-control input::-webkit-outer-spin-button,.step-control input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.step-control select{appearance:none;-webkit-appearance:none;cursor:pointer}
+.step-control input:focus,.step-control select:focus{outline:0!important;background:#fafafa}
+.step-button{border:0;background:#fff;cursor:pointer;padding:0;font-size:17px;font-weight:700;line-height:1;opacity:.48;transition:background .15s ease,opacity .15s ease}
+.step-button.minus{background:rgba(198,40,40,.095);color:#964343}
+.step-button.plus{background:rgba(22,128,60,.095);color:#447d54}
+.step-button.minus:hover{background:rgba(198,40,40,.17);opacity:.95}
+.step-button.plus:hover{background:rgba(22,128,60,.17);opacity:.95}
+.step-button:active{opacity:1}
 .tool-result{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
 .tool-result-main{font-size:30px;font-weight:800;letter-spacing:-.7px}
 .tool-result-sub{margin-top:5px;color:var(--muted);font-size:13px;line-height:1.55}
@@ -20,4 +31,7 @@
   .tool-field.full{grid-column:auto}
   .tool-result-main{font-size:27px}
   .tool-breakdown{grid-template-columns:1fr}
+  .step-control{grid-template-columns:42px minmax(0,1fr) 42px;min-height:48px}
+  .step-button{font-size:19px}
+  .step-control input,.step-control select{font-size:15px;padding:12px 6px!important}
 }

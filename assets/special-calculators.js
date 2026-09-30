@@ -116,4 +116,37 @@ if(document.getElementById('cash-price')){
   }
   bind(['cash-price','installment-total','installment-months'],installment,'cash-vs-installment');
 }
+
+function enhanceSteppers(){
+  document.querySelectorAll('.tool-field input[type="number"],.tool-field select').forEach(function(el){
+    if(el.parentElement&&el.parentElement.classList.contains('step-control'))return;
+    var wrap=document.createElement('div');
+    wrap.className='step-control';
+    var minus=document.createElement('button');
+    minus.type='button';minus.className='step-button minus';minus.textContent='‹';minus.setAttribute('aria-label','Azalt');
+    var plus=document.createElement('button');
+    plus.type='button';plus.className='step-button plus';plus.textContent='›';plus.setAttribute('aria-label','Artır');
+    el.parentNode.insertBefore(wrap,el);
+    wrap.appendChild(minus);wrap.appendChild(el);wrap.appendChild(plus);
+
+    function move(dir){
+      if(el.tagName==='SELECT'){
+        var next=Math.max(0,Math.min(el.options.length-1,el.selectedIndex+dir));
+        if(next===el.selectedIndex)return;
+        el.selectedIndex=next;
+      }else{
+        try{dir>0?el.stepUp():el.stepDown()}catch(e){
+          var step=Number(el.step)||1,current=Number(el.value)||0;
+          var next=current+dir*step,min=el.min===''?-Infinity:Number(el.min),max=el.max===''?Infinity:Number(el.max);
+          el.value=Math.max(min,Math.min(max,next));
+        }
+      }
+      el.dispatchEvent(new Event('input',{bubbles:true}));
+      el.dispatchEvent(new Event('change',{bubbles:true}));
+    }
+    minus.addEventListener('click',function(){move(-1)});
+    plus.addEventListener('click',function(){move(1)});
+  });
+}
+enhanceSteppers();
 })();
