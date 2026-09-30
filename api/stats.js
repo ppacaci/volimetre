@@ -38,7 +38,7 @@ module.exports = async function handler(req, res) {
 
   const token = process.env.VOLIMETRE_VERCEL_TOKEN;
   const projectId = process.env.VOLIMETRE_VERCEL_PROJECT_ID || process.env.VERCEL_PROJECT_ID;
-  const teamId = process.env.VOLIMETRE_VERCEL_TEAM_ID || process.env.VERCEL_TEAM_ID;
+  const teamRef = process.env.VOLIMETRE_VERCEL_TEAM_ID || process.env.VERCEL_TEAM_ID;
 
   if (!token || !projectId) {
     return res.status(503).json({
@@ -54,10 +54,13 @@ module.exports = async function handler(req, res) {
 
   const common = {
     projectId,
-    teamId,
     since: isoDate(sinceDate),
     until: isoDate(untilDate)
   };
+  if (teamRef) {
+    if (String(teamRef).startsWith('team_')) common.teamId = teamRef;
+    else common.slug = teamRef;
+  }
 
   try {
     const [visits, tools] = await Promise.all([
