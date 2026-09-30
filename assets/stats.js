@@ -20,6 +20,7 @@ var toolNames={
 function tr(n){return new Intl.NumberFormat('tr-TR').format(Number(n)||0)}
 
 function titleFromPath(path){
+  if(path!=='/' && path.slice(-1)!=='/')path+='/';
   var known={
     '/':'Ana sayfa',
     '/kredi-hesaplama/':'Kredi Hesaplama',
