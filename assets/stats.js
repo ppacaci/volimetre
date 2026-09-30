@@ -17,7 +17,13 @@ var toolNames={
   'deposit':'Mevduat faizi hesaplama',
   'pension-promo':'Emekli promosyon hesaplama',
   'card-minimum':'Kredi kartı asgari ödeme',
-  'card-restructure':'Kredi kartı borç yapılandırma'
+  'card-restructure':'Kredi kartı borç yapılandırma',
+  'card-interest':'Kredi kartı faiz hesaplama',
+  'card-late-interest':'Kredi kartı gecikme faizi',
+  'cash-advance':'Nakit avans faiz hesaplama',
+  'card-payoff':'Kredi kartı borç kapatma',
+  'card-payment-target':'Kredi kartı aylık ödeme hedefi',
+  'cash-vs-installment':'Peşin mi taksit mi'
 };
 
 function tr(n){return new Intl.NumberFormat('tr-TR').format(Number(n)||0)}
@@ -38,6 +44,13 @@ function titleFromPath(path){
     '/emekli-promosyon-hesaplama/':'Emekli Promosyon Hesaplama',
     '/kredi-karti-asgari-odeme-hesaplama/':'Kredi Kartı Asgari Ödeme Hesaplama',
     '/kredi-karti-borc-yapilandirma-hesaplama/':'Kredi Kartı Borç Yapılandırma Hesaplama',
+    '/kredi-karti-hesaplama/':'Kredi Kartı Hesaplama Araçları',
+    '/kredi-karti-faiz-hesaplama/':'Kredi Kartı Faiz Hesaplama',
+    '/kredi-karti-gecikme-faizi-hesaplama/':'Kredi Kartı Gecikme Faizi Hesaplama',
+    '/nakit-avans-faizi-hesaplama/':'Nakit Avans Faizi Hesaplama',
+    '/kredi-karti-borc-kapatma-hesaplama/':'Kredi Kartı Borç Kapatma Hesaplama',
+    '/kredi-karti-aylik-odeme-hesaplama/':'Kredi Kartı Aylık Ödeme Hesaplama',
+    '/pesin-mi-taksit-mi-hesaplama/':'Peşin mi Taksit mi Hesaplama',
     '/50-bin-tl-kredi-hesaplama/':'50 Bin TL Kredi Hesaplama',
     '/100-bin-tl-kredi-hesaplama/':'100 Bin TL Kredi Hesaplama',
     '/250-bin-tl-kredi-hesaplama/':'250 Bin TL Kredi Hesaplama',

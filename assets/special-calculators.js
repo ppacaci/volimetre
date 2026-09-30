@@ -1,7 +1,9 @@
 (function(){
 'use strict';
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(Number(n)||0))}
-function num(id){return Number(document.getElementById(id).value)||0}
+function pct(n){return '%'+(Number(n)||0).toFixed(2).replace('.',',')}
+function num(id){var el=document.getElementById(id);return el?Number(el.value)||0:0}
+function set(id,v){var el=document.getElementById(id);if(el)el.textContent=v}
 function track(tool){
   var key='volimetre:tool-used:'+tool;
   try{if(sessionStorage.getItem(key))return;sessionStorage.setItem(key,'1')}catch(e){}
@@ -16,52 +18,102 @@ function bind(ids,fn,tool){
   });
   fn();
 }
+function annuity(p,r,n){
+  r=Math.max(0,r)/100;n=Math.max(1,n);
+  if(r===0)return p/n;
+  var z=Math.pow(1+r,n);
+  return p*r*z/(z-1);
+}
+function cardRate(debt,late){
+  if(debt<30000)return late?3.55:3.25;
+  if(debt<=180000)return late?4.05:3.75;
+  return late?4.55:4.25;
+}
 
 if(document.getElementById('promo-new')){
   function promo(){
-    var current=num('promo-current');
-    var total=Math.max(1,num('promo-total-months'));
-    var elapsed=Math.min(total,Math.max(0,num('promo-elapsed')));
-    var fresh=num('promo-new');
-    var remaining=Math.max(0,total-elapsed);
-    var refund=current*(remaining/total);
-    var net=fresh-refund;
-    document.getElementById('promo-main').textContent=money(net);
-    document.getElementById('promo-refund').textContent=money(refund);
-    document.getElementById('promo-monthly').textContent=money(fresh/total)+'/ay';
-    document.getElementById('promo-remaining').textContent=remaining+' ay';
-    document.getElementById('promo-label').textContent=net>=0?'Yaklaşık net geçiş avantajı':'Yaklaşık net fark';
+    var current=num('promo-current'),total=Math.max(1,num('promo-total-months')),elapsed=Math.min(total,Math.max(0,num('promo-elapsed'))),fresh=num('promo-new');
+    var remaining=Math.max(0,total-elapsed),refund=current*(remaining/total),net=fresh-refund;
+    set('promo-main',money(net));set('promo-refund',money(refund));set('promo-monthly',money(fresh/total)+'/ay');set('promo-remaining',remaining+' ay');set('promo-label',net>=0?'Yaklaşık net geçiş avantajı':'Yaklaşık net fark');
   }
   bind(['promo-current','promo-total-months','promo-elapsed','promo-new'],promo,'pension-promo');
 }
 
 if(document.getElementById('card-limit')){
   function minimum(){
-    var limit=num('card-limit');
-    var debt=num('card-debt');
-    var rate=limit<=50000?20:40;
-    var min=debt*rate/100;
-    var remain=Math.max(0,debt-min);
-    document.getElementById('minimum-main').textContent=money(min);
-    document.getElementById('minimum-rate').textContent='%'+rate;
-    document.getElementById('minimum-remain').textContent=money(remain);
-    document.getElementById('minimum-debt').textContent=money(debt);
+    var limit=num('card-limit'),debt=num('card-debt'),rate=limit<=50000?20:40,min=debt*rate/100;
+    set('minimum-main',money(min));set('minimum-rate','%'+rate);set('minimum-remain',money(Math.max(0,debt-min)));set('minimum-debt',money(debt));
   }
   bind(['card-limit','card-debt'],minimum,'card-minimum');
 }
 
+if(document.getElementById('card-interest-debt')){
+  function interest(){
+    var debt=num('card-interest-debt'),months=Math.max(1,num('card-interest-months')),rate=num('card-interest-rate');
+    if(!document.getElementById('card-interest-rate').dataset.touched){rate=cardRate(debt,false);document.getElementById('card-interest-rate').value=rate.toFixed(2)}
+    var totalInterest=debt*(Math.pow(1+rate/100,months)-1);
+    set('card-interest-main',money(totalInterest));set('card-interest-rate-out',pct(rate));set('card-interest-total',money(debt+totalInterest));set('card-interest-months-out',months+' ay');
+  }
+  document.getElementById('card-interest-rate').addEventListener('input',function(){this.dataset.touched='1'});
+  bind(['card-interest-debt','card-interest-months','card-interest-rate'],interest,'card-interest');
+}
+
+if(document.getElementById('late-debt')){
+  function late(){
+    var debt=num('late-debt'),days=Math.max(1,num('late-days')),rate=num('late-rate');
+    if(!document.getElementById('late-rate').dataset.touched){rate=cardRate(debt,true);document.getElementById('late-rate').value=rate.toFixed(2)}
+    var interest=debt*(rate/100)*(days/30);
+    set('late-main',money(interest));set('late-rate-out',pct(rate));set('late-total',money(debt+interest));set('late-days-out',days+' gün');
+  }
+  document.getElementById('late-rate').addEventListener('input',function(){this.dataset.touched='1'});
+  bind(['late-debt','late-days','late-rate'],late,'card-late-interest');
+}
+
+if(document.getElementById('cash-amount')){
+  function cash(){
+    var amount=num('cash-amount'),days=Math.max(1,num('cash-days')),rate=num('cash-rate'),fee=num('cash-fee');
+    var interest=amount*(rate/100)*(days/30),total=amount+interest+fee;
+    set('cash-main',money(total));set('cash-interest',money(interest));set('cash-rate-out',pct(rate));set('cash-fee-out',money(fee));
+  }
+  bind(['cash-amount','cash-days','cash-rate','cash-fee'],cash,'cash-advance');
+}
+
+if(document.getElementById('payoff-debt')){
+  function payoff(){
+    var debt=num('payoff-debt'),payment=num('payoff-payment'),rate=Math.max(0,num('payoff-rate'))/100,balance=debt,months=0,total=0;
+    if(payment<=0||payment<=balance*rate){set('payoff-main','Kapanmaz');set('payoff-total','—');set('payoff-interest','—');set('payoff-note','Aylık ödeme aylık faizden yüksek olmalı.');return}
+    while(balance>0.5&&months<600){
+      balance+=balance*rate;
+      var paid=Math.min(payment,balance);balance-=paid;total+=paid;months++;
+    }
+    set('payoff-main',months+' ay');set('payoff-total',money(total));set('payoff-interest',money(Math.max(0,total-debt)));set('payoff-note',months>=600?'600 aydan uzun':'Yaklaşık kapanış süresi');
+  }
+  bind(['payoff-debt','payoff-payment','payoff-rate'],payoff,'card-payoff');
+}
+
+if(document.getElementById('target-debt')){
+  function target(){
+    var debt=num('target-debt'),months=Math.max(1,num('target-months')),rate=num('target-rate'),payment=annuity(debt,rate,months),total=payment*months;
+    set('target-main',money(payment)+'/ay');set('target-total',money(total));set('target-interest',money(Math.max(0,total-debt)));set('target-months-out',months+' ay');
+  }
+  bind(['target-debt','target-months','target-rate'],target,'card-payment-target');
+}
+
 if(document.getElementById('restruct-debt')){
   function restruct(){
-    var p=num('restruct-debt');
-    var n=Math.max(1,num('restruct-term'));
-    var r=Math.max(0,num('restruct-rate'))/100;
-    var monthly=r===0?p/n:p*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1);
-    var total=monthly*n;
-    document.getElementById('restruct-main').textContent=money(monthly)+'/ay';
-    document.getElementById('restruct-total').textContent=money(total);
-    document.getElementById('restruct-cost').textContent=money(total-p);
-    document.getElementById('restruct-term-out').textContent=n+' ay';
+    var p=num('restruct-debt'),n=Math.max(1,num('restruct-term')),r=Math.max(0,num('restruct-rate')),monthly=annuity(p,r,n),total=monthly*n;
+    set('restruct-main',money(monthly)+'/ay');set('restruct-total',money(total));set('restruct-cost',money(total-p));set('restruct-term-out',n+' ay');
   }
   bind(['restruct-debt','restruct-term','restruct-rate'],restruct,'card-restructure');
+}
+
+if(document.getElementById('cash-price')){
+  function installment(){
+    var cashPrice=num('cash-price'),installmentTotal=num('installment-total'),months=Math.max(1,num('installment-months'));
+    var diff=installmentTotal-cashPrice,pctDiff=cashPrice>0?diff/cashPrice*100:0,monthly=installmentTotal/months;
+    set('installment-main',diff>0?money(diff)+' daha pahalı':diff<0?money(Math.abs(diff))+' daha ucuz':'Aynı maliyet');
+    set('installment-monthly',money(monthly)+'/ay');set('installment-diff',money(diff));set('installment-pct',(pctDiff>=0?'+':'')+pctDiff.toFixed(1).replace('.',',')+'%');
+  }
+  bind(['cash-price','installment-total','installment-months'],installment,'cash-vs-installment');
 }
 })();
