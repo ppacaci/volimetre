@@ -25,6 +25,28 @@ var openPanel=null;
 var lockAmount=app.dataset.lockAmount==='true';
 var mode=app.dataset.mode||'default';
 
+function analyticsTool(){
+  if(mode==='mortgage')return 'mortgage';
+  if(mode==='consumer')return 'consumer';
+  if(mode==='vehicle')return 'vehicle';
+  if(mode==='business')return 'business';
+  if(mode==='esnaf-kefalet')return 'esnaf-kefalet';
+  if(mode==='togg')return 'togg';
+  return 'general-credit';
+}
+function trackToolUse(){
+  var tool=analyticsTool();
+  var key='volimetre:tool-used:'+tool;
+  try{
+    if(sessionStorage.getItem(key))return;
+    sessionStorage.setItem(key,'1');
+  }catch(e){}
+  if(window.va)window.va('event',{name:'ToolUsed',tool:tool});
+}
+app.addEventListener('click',function(e){
+  if(e.target.closest('.fieldzone,.fieldcenter,.choice,.add'))trackToolUse();
+});
+
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n))}
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}

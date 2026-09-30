@@ -23,6 +23,18 @@ var initial={
 var data=[initial];
 var openPanel=null;
 
+function trackToolUse(){
+  var key='volimetre:tool-used:deposit';
+  try{
+    if(sessionStorage.getItem(key))return;
+    sessionStorage.setItem(key,'1');
+  }catch(e){}
+  if(window.va)window.va('event',{name:'ToolUsed',tool:'deposit'});
+}
+app.addEventListener('click',function(e){
+  if(e.target.closest('.fieldzone,.fieldcenter,.choice,.add'))trackToolUse();
+});
+
 function money(n){
   return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(n));
 }
