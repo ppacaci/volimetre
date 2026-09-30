@@ -41,7 +41,7 @@ function trackToolUse(){
     if(sessionStorage.getItem(key))return;
     sessionStorage.setItem(key,'1');
   }catch(e){}
-  if(window.va)window.va('event',{name:'ToolUsed',tool:tool});
+  if(window.va)window.va('pageview',{path:'/__tool-use/'+tool});
 }
 app.addEventListener('click',function(e){
   if(e.target.closest('.fieldzone,.fieldcenter,.choice,.add'))trackToolUse();

@@ -63,27 +63,31 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    const [visits, tools] = await Promise.all([
-      queryAnalytics('visits/aggregate', { ...common, by: 'requestPath', limit: PAGE_LIMIT }, token),
-      queryAnalytics('events/aggregate', {
-        ...common,
-        by: 'eventData/tool',
-        filter: "eventName eq 'ToolUsed'",
-        limit: TOOL_LIMIT
-      }, token)
-    ]);
+    const visits = await queryAnalytics(
+      'visits/aggregate',
+      { ...common, by: 'requestPath', limit: PAGE_LIMIT },
+      token
+    );
 
-    const pages = Array.isArray(visits.data) ? visits.data.map(row => ({
-      path: row.requestPath || row.path || '/',
-      pageviews: Number(row.pageviews) || 0,
-      visitors: Number(row.visitors) || 0
-    })) : [];
+    const rows = Array.isArray(visits.data) ? visits.data : [];
+    const pages = [];
+    const toolRows = [];
 
-    const toolRows = Array.isArray(tools.data) ? tools.data.map(row => ({
-      tool: row.eventData || row.tool || 'unknown',
-      uses: Number(row.count) || 0,
-      visitors: Number(row.visitors) || 0
-    })) : [];
+    rows.forEach(row => {
+      const path = row.requestPath || row.path || '/';
+      const pageviews = Number(row.pageviews) || Number(row.count) || 0;
+      const visitors = Number(row.visitors) || 0;
+
+      if (path.startsWith('/__tool-use/')) {
+        toolRows.push({
+          tool: path.slice('/__tool-use/'.length) || 'unknown',
+          uses: pageviews,
+          visitors
+        });
+      } else {
+        pages.push({ path, pageviews, visitors });
+      }
+    });
 
     pages.sort((a, b) => b.pageviews - a.pageviews);
     toolRows.sort((a, b) => b.uses - a.uses);
