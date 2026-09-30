@@ -14,7 +14,10 @@ var toolNames={
   'business':'Esnaf / ticari kredi hesaplama',
   'esnaf-kefalet':'Esnaf kefalet kredisi hesaplama',
   'togg':'TOGG kredi hesaplama',
-  'deposit':'Mevduat faizi hesaplama'
+  'deposit':'Mevduat faizi hesaplama',
+  'pension-promo':'Emekli promosyon hesaplama',
+  'card-minimum':'Kredi kartı asgari ödeme',
+  'card-restructure':'Kredi kartı borç yapılandırma'
 };
 
 function tr(n){return new Intl.NumberFormat('tr-TR').format(Number(n)||0)}
@@ -32,6 +35,9 @@ function titleFromPath(path){
     '/togg-kredi-hesaplama/':'TOGG Kredi Hesaplama',
     '/mevduat-faizi-hesaplama/':'Mevduat Faizi Hesaplama',
     '/faizsiz-kredi/':'Faizsiz Kredi',
+    '/emekli-promosyon-hesaplama/':'Emekli Promosyon Hesaplama',
+    '/kredi-karti-asgari-odeme-hesaplama/':'Kredi Kartı Asgari Ödeme Hesaplama',
+    '/kredi-karti-borc-yapilandirma-hesaplama/':'Kredi Kartı Borç Yapılandırma Hesaplama',
     '/50-bin-tl-kredi-hesaplama/':'50 Bin TL Kredi Hesaplama',
     '/100-bin-tl-kredi-hesaplama/':'100 Bin TL Kredi Hesaplama',
     '/250-bin-tl-kredi-hesaplama/':'250 Bin TL Kredi Hesaplama',
