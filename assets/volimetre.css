@@ -100,6 +100,9 @@ footer a{color:inherit}
 }
 .amount-links a:hover{color:var(--text);border-bottom-color:#aaa}
 .amount-links .current{color:#555;font-weight:600}
+.home-link-groups{display:block}
+.home-link-groups .link-group{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 10px}
+.home-link-groups .link-group+.link-group{margin-top:15px}
 @media(max-width:520px){
   .fields > :first-child{grid-column:1 / -1}
   .fieldlocked{width:100%;min-height:48px;font-size:15px;padding:12px 8px}
