@@ -9,7 +9,7 @@ a{color:inherit}
 .brand img{display:block;width:176px;height:auto}
 .tag,.total,.diff,footer{color:var(--muted)}
 header{margin-bottom:46px}
-.tag{margin-top:3px}
+.tag{margin-top:9px}
 .card{position:relative;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:10px}
 .main{padding:28px 22px}
 .monthly{font-size:32px;font-weight:800;letter-spacing:-1px}
