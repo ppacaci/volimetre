@@ -1,5 +1,10 @@
 (function(){
 'use strict';
+function loadBudgetCore(){
+  if(window.VolimetreBudget||document.querySelector('script[data-volimetre-budget]'))return;
+  var s=document.createElement('script');s.src='/assets/budget-core.js';s.defer=true;s.dataset.volimetreBudget='1';document.head.appendChild(s);
+}
+loadBudgetCore();
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(Number(n)||0))}
 function pct(n){return '%'+(Number(n)||0).toFixed(2).replace('.',',')}
 function num(id){var el=document.getElementById(id);return el?Number(el.value)||0:0}
@@ -116,6 +121,24 @@ if(document.getElementById('cash-price')){
   }
   bind(['cash-price','installment-total','installment-months'],installment,'cash-vs-installment');
 }
+
+function attachBudgetAction(){
+  var cfg=null;
+  if(document.getElementById('card-limit'))cfg={label:'Kredi kartı ödemesi',key:'card-minimum',amount:function(){var limit=num('card-limit'),debt=num('card-debt');return debt*(limit<=50000?20:40)/100}};
+  if(document.getElementById('restruct-debt'))cfg={label:'Kart yapılandırma taksiti',key:'card-restructure',amount:function(){return annuity(num('restruct-debt'),num('restruct-rate'),Math.max(1,num('restruct-term')))}};
+  if(document.getElementById('payoff-debt'))cfg={label:'Kredi kartı aylık ödeme planı',key:'card-payoff',amount:function(){return num('payoff-payment')}};
+  if(document.getElementById('target-debt'))cfg={label:'Kredi kartı hedef aylık ödeme',key:'card-payment-target',amount:function(){return annuity(num('target-debt'),num('target-rate'),Math.max(1,num('target-months')))}};
+  if(!cfg)return;
+  var host=document.querySelector('.tool-result');if(!host||host.querySelector('.budget-add-inline'))return;
+  var box=document.createElement('div');box.className='budget-add-inline';var b=document.createElement('button');b.type='button';b.className='budget-add-button';b.textContent='Bütçeme Ekle';
+  b.onclick=function(){
+    if(!window.VolimetreBudget){b.textContent='Tekrar deneyin';return}
+    window.VolimetreBudget.addOrUpdateDebt({label:cfg.label,amount:cfg.amount(),sourceKey:'special:'+cfg.key+':'+location.pathname});
+    b.textContent='Bütçeye eklendi';setTimeout(function(){b.textContent='Bütçeme Ekle'},1600);
+  };
+  box.appendChild(b);host.appendChild(box);
+}
+attachBudgetAction();
 
 function enhanceSteppers(){
   document.querySelectorAll('.tool-field input[type="number"],.tool-field select').forEach(function(el){

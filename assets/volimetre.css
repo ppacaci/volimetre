@@ -40,6 +40,9 @@ header{margin-bottom:46px}
 .add{border:0;background:transparent;color:#555;padding:6px 12px;font-size:25px;font-weight:400;line-height:1;border-radius:0}
 .add:hover{color:#555;background:transparent}
 .add:active{transform:translateY(1px)}
+.budget-add-inline{text-align:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+.budget-add-button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px;font-size:12px;cursor:pointer;color:#555}
+.budget-add-button:hover{border-color:#bdbdb7;color:var(--text)}
 footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);font-size:12px;text-align:center}
 footer a{color:inherit}
 @media(max-width:520px){

@@ -56,6 +56,15 @@ function titleFromPath(path){
     '/250-bin-tl-kredi-hesaplama/':'250 Bin TL Kredi Hesaplama',
     '/500-bin-tl-kredi-hesaplama/':'500 Bin TL Kredi Hesaplama',
     '/1-milyon-tl-kredi-hesaplama/':'1 Milyon TL Kredi Hesaplama',
+    '/butcem/':'Bütçem',
+    '/butcem/kredi-odeyebilir-miyim/':'Bu Krediyi Ödeyebilir miyim?',
+    '/butcem/araba-alabilir-miyim/':'Bu Arabayı Alabilir miyim?',
+    '/butcem/ev-kiralayabilir-miyim/':'Bu Evi Kiralayabilir miyim?',
+    '/butcem/ne-kadar-kredi-odeyebilirim/':'Ne Kadar Kredi Kaldırabilirim?',
+    '/butcem/borc-ne-zaman-biter/':'Borçlarımı Ne Zaman Bitiririm?',
+    '/butcem/ne-kadar-biriktirebilirim/':'Ayda Ne Kadar Biriktirebilirim?',
+    '/butcem/hedef-birikim/':'Hedef Birikim',
+    '/butcem/nakit-mi-kredi-mi/':'Nakit mi Kredi mi?',
     '/istatistikler/':'İstatistikler',
     '/sicak-teklifler/':'Sıcak Teklifler'
   };

@@ -10,7 +10,11 @@ function loadVercelAnalytics(){
   document.head.appendChild(s);
 }
 loadVercelAnalytics();
-
+function loadBudgetCore(){
+  if(window.VolimetreBudget||document.querySelector('script[data-volimetre-budget]'))return;
+  var s=document.createElement('script');s.src='/assets/budget-core.js';s.defer=true;s.dataset.volimetreBudget='1';document.head.appendChild(s);
+}
+loadBudgetCore();
 
 var app=document.getElementById('app');
 if(!app)return;
@@ -302,6 +306,21 @@ function render(){
           '<p>Aylık taksit hesabında faiz üzerinden %15 BSMV ve %15 KKDF dikkate alınır. Kasko, trafik ve hayat sigortası dahil değildir.</p>'+
         '</div>';
       c.appendChild(vehicleCostsBox);
+    }
+
+    if(i===0){
+      var budgetBox=document.createElement('div');
+      budgetBox.className='budget-add-inline';
+      var budgetBtn=btn('Bütçeme Ekle','budget-add-button');
+      budgetBtn.onclick=function(e){
+        e.stopPropagation();
+        if(!window.VolimetreBudget){budgetBtn.textContent='Tekrar deneyin';return;}
+        var names={mortgage:'Konut kredisi taksiti',consumer:'İhtiyaç kredisi taksiti',vehicle:'Taşıt kredisi taksiti',business:'Esnaf kredisi taksiti','esnaf-kefalet':'Esnaf kefalet kredisi taksiti',togg:'TOGG kredisi taksiti',default:'Kredi taksiti'};
+        window.VolimetreBudget.addOrUpdateDebt({label:names[mode]||names.default,amount:q,sourceKey:'loan:'+location.pathname,meta:{principal:s.a,term:s.t,rate:s.r}});
+        budgetBtn.textContent='Bütçeye eklendi';
+        setTimeout(function(){budgetBtn.textContent='Bütçeme Ekle'},1600);
+      };
+      budgetBox.appendChild(budgetBtn);c.appendChild(budgetBox);
     }
 
     if(mode==='mortgage' && i===0){
