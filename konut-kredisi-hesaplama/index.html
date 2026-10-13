@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="/assets/volimetre-mark.png" type="image/png">
-<title>Konut Kredisi Hesaplama | Volimetre</title>
-<meta name="description" content="Konut kredisi tutarı, vade ve aylık faiz oranına göre aylık taksit ve toplam geri ödemeyi hızlıca hesaplayın. 60, 84 ve 120 ay örneklerini karşılaştırın.">
+<title>Konut / Ev Kredisi Hesaplama, Faiz ve Masraflar | Volimetre</title>
+<meta name="description" content="Konut veya ev kredisi tutarı, vade ve aylık faiz oranına göre taksit ve toplam geri ödemeyi hesaplayın; tahmini kredi masraflarını görün.">
 <link rel="canonical" href="https://volimetre.com.tr/konut-kredisi-hesaplama/">
 <meta name="robots" content="index,follow">
 <link rel="stylesheet" href="/assets/volimetre.css">
@@ -33,6 +33,16 @@
       "@type":"Question",
       "name":"Konut kredisi hesaplamasına tüm masraflar dahil mi?",
       "acceptedAnswer":{"@type":"Answer","text":"Aylık taksit hesabına ek masraflar dahil değildir. Volimetre ayrıca tahsis, ekspertiz ve ipotek tesis kalemleri için yaklaşık bir ek masraf tahmini gösterir; sigorta, tapu harcı ve duruma göre uygulanabilecek diğer vergiler bu tahmine dahil değildir."}
+    },
+    {
+      "@type":"Question",
+      "name":"Konut kredisi vadesini kısaltınca ne olur?",
+      "acceptedAnswer":{"@type":"Answer","text":"Aynı kredi tutarı ve faiz oranında vade kısaldıkça aylık taksit yükselir, toplam geri ödeme ise genellikle azalır."}
+    },
+    {
+      "@type":"Question",
+      "name":"Artan taksitli konut kredisi nedir?",
+      "acceptedAnswer":{"@type":"Answer","text":"Artan taksitli planda aylık ödeme belirli dönemlerde yükselir. Artış oranı ve dönemi bankaya göre değişebileceği için resmi ödeme planı esas alınmalıdır."}
     }
   ]
 }
@@ -47,7 +57,7 @@
 
 <div class="hero">
   <h1>Konut Kredisi Hesaplama</h1>
-  <p class="intro">Kredi tutarı, vade ve aylık faiz oranını değiştirin; konut kredinizin yaklaşık aylık taksitini ve toplam geri ödemesini anında görün.</p>
+  <p class="intro">Kredi tutarı, vade ve aylık faiz oranını değiştirin; konut veya ev kredinizin yaklaşık aylık taksitini, toplam geri ödemesini ve tahmini ek masraflarını anında görün.</p>
 </div>
 
 <div id="app" data-mode="mortgage" data-amount="1000000" data-term="120" data-rate="2.99"></div>
@@ -82,6 +92,12 @@
   </section>
 
   <section>
+    <h2>Farklı konut kredisi hesapları</h2>
+    <p>Standart eşit taksitli hesap dışında iki ayrı senaryoyu da hesaplayabilirsiniz: <a href="/konut-kredisi-vade-kisaltma-hesaplama/">konut kredisi vade kısaltma</a> aracı, daha kısa vadede aylık taksit ve toplam ödeme farkını gösterir; <a href="/artan-taksitli-konut-kredisi-hesaplama/">artan taksitli konut kredisi</a> aracı ise ödemelerin belirli dönemlerde arttığı örnek bir plan oluşturur.</p>
+    <p>Engelli bireyler için banka tarafından özel bir faiz veya ürün sunuluyorsa, bu sayfadaki faiz alanına teklif edilen oran girilerek aynı temel taksit hesabı yapılabilir. Volimetre ayrı bir “engelli konut kredisi” oranı varsaymaz.</p>
+  </section>
+
+  <section>
     <h2>Sık sorulanlar</h2>
     <div class="faq">
       <h3>1 milyon TL konut kredisi 120 ayda ne kadar?</h3>
@@ -94,6 +110,14 @@
     <div class="faq">
       <h3>Sonuç bankanın ödeme planıyla aynı çıkar mı?</h3>
       <p>Her zaman değil. Aylık taksit temel eşit taksit hesabıdır; ek masraf bölümü de yaklaşık referans değerler kullanır. Bankanın masraf, sigorta, vergi ve ürün koşulları nedeniyle gerçek ödeme planı farklı olabilir.</p>
+    </div>
+    <div class="faq">
+      <h3>Ev kredisi hesaplama ile konut kredisi hesaplama aynı şey mi?</h3>
+      <p>Günlük kullanımda “ev kredisi” ifadesi çoğunlukla konut kredisi anlamında kullanılır. Hesaplama açısından kredi tutarı, aylık faiz ve vade bilgileriyle aynı temel eşit taksit yöntemi uygulanır.</p>
+    </div>
+    <div class="faq">
+      <h3>Konut kredisi vadesini kısaltırsam ne kadar tasarruf ederim?</h3>
+      <p>Aynı faiz oranında vade kısaldığında aylık taksit artar ancak toplam geri ödeme genellikle düşer. <a href="/konut-kredisi-vade-kisaltma-hesaplama/">Vade kısaltma hesaplayıcısı</a> iki senaryoyu doğrudan karşılaştırır.</p>
     </div>
   </section>
 
@@ -109,6 +133,8 @@
     <a href="/250-bin-tl-kredi-hesaplama/">250 Bin TL</a>
     <a href="/500-bin-tl-kredi-hesaplama/">500 Bin TL</a>
     <a href="/1-milyon-tl-kredi-hesaplama/">1 Milyon TL</a>
+    <a href="/konut-kredisi-vade-kisaltma-hesaplama/">Vade Kısaltma</a>
+    <a href="/artan-taksitli-konut-kredisi-hesaplama/">Artan Taksitli</a>
   </nav>
 </div>
 

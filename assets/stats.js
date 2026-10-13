@@ -23,7 +23,9 @@ var toolNames={
   'cash-advance':'Nakit avans faiz hesaplama',
   'card-payoff':'Kredi kartı borç kapatma',
   'card-payment-target':'Kredi kartı aylık ödeme hedefi',
-  'cash-vs-installment':'Peşin mi taksit mi'
+  'cash-vs-installment':'Peşin mi taksit mi',
+  'mortgage-term-shortening':'Konut kredisi vade kısaltma',
+  'mortgage-step-up':'Artan taksitli konut kredisi'
 };
 
 function tr(n){return new Intl.NumberFormat('tr-TR').format(Number(n)||0)}
@@ -34,6 +36,8 @@ function titleFromPath(path){
     '/':'Ana sayfa',
     '/kredi-hesaplama/':'Kredi Hesaplama',
     '/konut-kredisi-hesaplama/':'Konut Kredisi Hesaplama',
+    '/konut-kredisi-vade-kisaltma-hesaplama/':'Konut Kredisi Vade Kısaltma',
+    '/artan-taksitli-konut-kredisi-hesaplama/':'Artan Taksitli Konut Kredisi',
     '/ihtiyac-kredisi-hesaplama/':'İhtiyaç Kredisi Hesaplama',
     '/tasit-kredisi-hesaplama/':'Taşıt Kredisi Hesaplama',
     '/esnaf-kredisi-hesaplama/':'Esnaf Kredisi Hesaplama',
