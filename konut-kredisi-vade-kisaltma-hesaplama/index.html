@@ -1,25 +1,117 @@
 <!doctype html>
-<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="index,follow">
-<link rel="icon" href="/assets/volimetre-mark.png" type="image/png"><title>Konut Kredisi Vade Kısaltma Hesaplama | Volimetre</title>
-<meta name="description" content="Konut kredisi vadesini kısalttığınızda aylık taksit, toplam ödeme ve yaklaşık faiz tasarrufunun nasıl değişeceğini hesaplayın.">
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/volimetre-mark.png" type="image/png">
+<title>Konut Kredisi Vade Kısaltma Hesaplama | Volimetre</title>
+<meta name="description" content="Konut kredisi vadesini kısalttığınızda yeni aylık taksiti, kaç ay kısaldığını ve toplam ödeme farkını anında hesaplayın.">
 <link rel="canonical" href="https://volimetre.com.tr/konut-kredisi-vade-kisaltma-hesaplama/">
-<link rel="stylesheet" href="/assets/volimetre.css"><link rel="stylesheet" href="/assets/seo-page.css"><link rel="stylesheet" href="/assets/special-calculators.css">
-<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script><script defer src="/_vercel/insights/script.js"></script></head>
-<body><main><header><div class="brand"><a href="/" aria-label="Volimetre ana sayfa"><img src="/assets/logo-volimetre.png" alt="volimetre"></a></div><div class="tag">Kredi hesaplamanın en kısa yolu.</div></header>
-<div class="hero"><h1>Konut Kredisi Vade Kısaltma Hesaplama</h1><p class="intro">Aynı kredi tutarı ve faiz oranında vadeyi kısalttığınızda aylık taksidin ne kadar yükseldiğini, toplam geri ödemenin ne kadar azaldığını görün.</p></div>
-<section class="tool-card"><div class="tool-grid">
-<div class="tool-field"><label for="short-principal">Kredi tutarı</label><input id="short-principal" type="number" min="0" step="50000" value="1000000"></div>
-<div class="tool-field"><label for="short-rate">Aylık faiz (%)</label><input id="short-rate" type="number" min="0" step="0.05" value="2.99"></div>
-<div class="tool-field"><label for="short-old-term">Mevcut vade</label><select id="short-old-term"><option>36</option><option>48</option><option>60</option><option>84</option><option selected>120</option></select></div>
-<div class="tool-field"><label for="short-new-term">Yeni vade</label><select id="short-new-term"><option>24</option><option>36</option><option>48</option><option selected>60</option><option>84</option></select></div>
-</div><div class="tool-result"><div class="tool-result-sub">Yeni aylık taksit</div><div class="tool-result-main" id="short-main">₺0/ay</div><div class="tool-breakdown">
-<div class="tool-metric"><span>Mevcut taksit</span><strong id="short-old-pay">₺0</strong></div>
-<div class="tool-metric"><span>Aylık ek yük</span><strong id="short-extra">₺0</strong></div>
-<div class="tool-metric"><span>Toplam ödeme farkı</span><strong id="short-saving">₺0</strong></div>
-<div class="tool-metric"><span>Kısalan süre</span><strong id="short-months">0 ay</strong></div>
-</div></div></section>
-<div class="content"><section><h2>Vade kısalınca ne değişir?</h2><p>Aynı kredi tutarı ve faiz oranında daha kısa vade aylık taksiti yükseltir; buna karşılık faiz daha kısa süre işlendiği için toplam geri ödeme genellikle azalır. Bu araç iki eşit taksitli senaryoyu yan yana karşılaştırır.</p></section>
-<section><h2>Bu hesap yeniden yapılandırma değildir</h2><p>Mevcut kredinin erken ödeme, ara ödeme, refinansman veya banka yeniden yapılandırma koşulları ayrıca ücret ve sözleşme şartları içerebilir. Sonuç basit senaryo karşılaştırmasıdır.</p></section>
-<nav class="amount-links" aria-label="Konut kredisi araçları"><a href="/konut-kredisi-hesaplama/">Konut Kredisi</a><a href="/artan-taksitli-konut-kredisi-hesaplama/">Artan Taksitli</a><a href="/butcem/ev-kiralayabilir-miyim/">Ev Bütçesi</a></nav></div>
-<footer>volimetre · <a href="/istatistikler/">istatistikler</a> · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer></main>
-<script src="/assets/mortgage-scenarios.js" defer></script></body></html>
+<link rel="stylesheet" href="/assets/volimetre.css">
+<link rel="stylesheet" href="/assets/seo-page.css">
+<link rel="stylesheet" href="/assets/special-calculators.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Konut kredisi vadesini kısaltınca ne olur?",
+      "acceptedAnswer":{"@type":"Answer","text":"Aynı kredi tutarı ve aylık faiz oranında vade kısaldıkça aylık taksit yükselir, toplam geri ödeme ise genellikle azalır."}
+    },
+    {
+      "@type":"Question",
+      "name":"Konut kredisi vade kısaltma nasıl hesaplanır?",
+      "acceptedAnswer":{"@type":"Answer","text":"Mevcut ve hedef vade için aynı kredi tutarı ve faiz oranıyla iki ayrı eşit taksitli ödeme planı hesaplanır. Aylık taksit, toplam ödeme ve ay farkı karşılaştırılır."}
+    },
+    {
+      "@type":"Question",
+      "name":"Bu hesap banka yeniden yapılandırma teklifiyle aynı mıdır?",
+      "acceptedAnswer":{"@type":"Answer","text":"Hayır. Banka erken ödeme, ara ödeme, yeniden yapılandırma, sigorta ve diğer ücretleri ayrıca uygulayabilir. Volimetre sonucu karşılaştırma amaçlı yaklaşık bir hesaplamadır."}
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+<header>
+  <div class="brand"><a href="/" aria-label="Volimetre ana sayfa"><img src="/assets/logo-volimetre.png" alt="volimetre"></a></div>
+  <div class="tag">Kredi hesaplamanın en kısa yolu.</div>
+</header>
+
+<div class="hero">
+  <h1>Konut Kredisi Vade Kısaltma Hesaplama</h1>
+  <p class="intro">Kredi tutarı, aylık faiz ve mevcut vadenizi girin. Daha kısa bir vade seçtiğinizde yeni taksiti, aylık ek yükü, toplam ödeme farkını ve kaç ay kazandığınızı anında görün.</p>
+</div>
+
+<section class="tool-card">
+  <div class="tool-grid">
+    <div class="tool-field"><label for="short-principal">Kredi tutarı</label><input id="short-principal" type="number" min="0" step="50000" value="1000000"></div>
+    <div class="tool-field"><label for="short-rate">Aylık faiz (%)</label><input id="short-rate" type="number" min="0" step="0.05" value="2.99"></div>
+    <div class="tool-field"><label for="short-old-term">Mevcut vade</label><select id="short-old-term"><option>36</option><option>48</option><option>60</option><option>84</option><option selected>120</option></select></div>
+    <div class="tool-field"><label for="short-new-term">Yeni vade</label><select id="short-new-term"><option>24</option><option>36</option><option>48</option><option selected>60</option><option>84</option></select></div>
+  </div>
+  <div class="tool-result">
+    <div class="tool-result-sub">Yeni aylık taksit</div>
+    <div class="tool-result-main" id="short-main">₺0/ay</div>
+    <div class="tool-breakdown">
+      <div class="tool-metric"><span>Mevcut taksit</span><strong id="short-old-pay">₺0</strong></div>
+      <div class="tool-metric"><span>Aylık ek yük</span><strong id="short-extra">₺0</strong></div>
+      <div class="tool-metric"><span>Toplam ödeme farkı</span><strong id="short-saving">₺0</strong></div>
+      <div class="tool-metric"><span>Kısalan süre</span><strong id="short-months">0 ay</strong></div>
+    </div>
+  </div>
+</section>
+
+<div class="content">
+  <section>
+    <h2>Vade kısalınca ne değişir?</h2>
+    <p>Aynı kredi tutarı ve aynı aylık faiz oranında daha kısa vade, aylık taksiti yükseltir. Buna karşılık faiz daha kısa süre işlendiği için toplam geri ödeme genellikle azalır.</p>
+    <p>Yukarıdaki araç iki eşit taksitli senaryoyu aynı anda hesaplar. Böylece yalnızca yeni taksiti değil, <strong>aylık ne kadar daha fazla ödeyeceğinizi</strong> ve <strong>toplam ödemede yaklaşık ne kadar fark oluşacağını</strong> da görebilirsiniz.</p>
+  </section>
+
+  <section>
+    <h2>Nasıl kullanılır?</h2>
+    <p>Kredi tutarınızı, bankanızın uyguladığı aylık faiz oranını ve mevcut vadenizi girin. Ardından hedeflediğiniz daha kısa vadeyi seçin. Sonuçlar seçim yaptığınız anda yeniden hesaplanır.</p>
+    <p>Örneğin 120 ay yerine 60 ay seçtiğinizde araç, yeni aylık taksiti ve 60 aylık vade farkının toplam geri ödemeye etkisini gösterir.</p>
+  </section>
+
+  <section>
+    <h2>Bu hesap neyi göstermez?</h2>
+    <p>Bu araç mevcut kredinizin banka tarafından resmen yeniden yapılandırılacağı varsayımıyla çalışmaz. Erken ödeme tazminatı, ara ödeme sonrası yeni plan, refinansman, sigorta veya banka ücretleri hesaplamaya dahil değildir.</p>
+    <p>Bu nedenle sonuç, <strong>“aynı kredi tutarı ve aynı faiz oranı daha kısa vadede olsaydı ne olurdu?”</strong> sorusuna hızlı bir karşılaştırma verir. Bankanın gerçek ödeme planı farklı olabilir.</p>
+  </section>
+
+  <section>
+    <h2>Sık sorulanlar</h2>
+    <div class="faq">
+      <h3>Konut kredisi vadesini kısaltmak toplam ödemeyi düşürür mü?</h3>
+      <p>Aynı faiz oranında genellikle evet. Vade kısaldığı için faiz daha az ay boyunca işler. Buna karşılık aylık taksit yükselir.</p>
+    </div>
+    <div class="faq">
+      <h3>Aylık taksitimi artırırsam vadem otomatik kısalır mı?</h3>
+      <p>Bankanın mevcut kredi sözleşmesine göre işlem yapılması gerekir. Bu araç doğrudan banka işlemi yapmaz; farklı vadelerin yaklaşık etkisini karşılaştırır.</p>
+    </div>
+    <div class="faq">
+      <h3>Ara ödeme yaptıktan sonra vade ne kadar kısalır?</h3>
+      <p>Ara ödeme sonrası kalan anapara ve bankanın oluşturduğu yeni ödeme planı gerekir. Bu sayfadaki hesap, ara ödeme ücretlerini veya sözleşmeye özel yeniden planlamayı içermez.</p>
+    </div>
+  </section>
+
+  <nav class="amount-links" aria-label="Konut kredisi araçları">
+    <a href="/konut-kredisi-hesaplama/">Konut Kredisi</a>
+    <a href="/artan-taksitli-konut-kredisi-hesaplama/">Artan Taksitli</a>
+    <a href="/butcem/ev-kiralayabilir-miyim/">Ev Bütçesi</a>
+  </nav>
+</div>
+
+<footer>volimetre · <a href="/istatistikler/">istatistikler</a> · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer>
+</main>
+<script src="/assets/mortgage-scenarios.js" defer></script>
+</body>
+</html>
