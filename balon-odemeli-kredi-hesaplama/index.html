@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/volimetre-mark.png" type="image/png">
+<title>Balon Ödemeli Kredi Hesaplama | Volimetre</title>
+<meta name="description" content="Balon ödemeli kredide aylık taksit, vade sonu balon ödeme ve toplam geri ödemeyi kredi tutarı, faiz ve balon oranına göre hesaplayın.">
+<link rel="canonical" href="https://volimetre.com.tr/balon-odemeli-kredi-hesaplama/">
+<link rel="stylesheet" href="/assets/volimetre.css">
+<link rel="stylesheet" href="/assets/seo-page.css">
+<link rel="stylesheet" href="/assets/special-calculators.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<main>
+<header><div class="brand"><a href="/" aria-label="Volimetre ana sayfa"><img src="/assets/logo-volimetre.png" alt="volimetre"></a></div><div class="tag">Kredi hesaplamanın en kısa yolu.</div></header>
+<div class="hero"><h1>Balon Ödemeli Kredi Hesaplama</h1><p class="intro">Kredi tutarı, aylık faiz, vade ve vade sonunda bırakmak istediğiniz balon ödeme oranını girin; aylık taksiti ve son ödemeyi görün.</p></div>
+<section class="tool-card"><div class="tool-grid">
+<div class="tool-field"><label for="balloon-principal">Kredi tutarı</label><input id="balloon-principal" type="number" min="0" step="10000" value="500000"></div>
+<div class="tool-field"><label for="balloon-rate">Aylık faiz (%)</label><input id="balloon-rate" type="number" min="0" step="0.05" value="2.99"></div>
+<div class="tool-field"><label for="balloon-term">Vade</label><select id="balloon-term"><option>12</option><option selected>24</option><option>36</option><option>48</option></select></div>
+<div class="tool-field"><label for="balloon-ratio">Balon ödeme (%)</label><input id="balloon-ratio" type="number" min="0" max="80" step="5" value="30"></div>
+</div><div class="tool-result"><div class="tool-result-sub">Yaklaşık aylık taksit</div><div class="tool-result-main" id="balloon-pay">₺0/ay</div><div class="tool-breakdown">
+<div class="tool-metric"><span>Vade sonu balon ödeme</span><strong id="balloon-final">₺0</strong></div>
+<div class="tool-metric"><span>Toplam ödeme</span><strong id="balloon-total">₺0</strong></div>
+</div></div></section>
+<div class="content">
+<section><h2>Balon ödemeli kredi nasıl çalışır?</h2><p>Kredinin bir bölümü vade sonuna bırakılır. Bu nedenle aylık taksit standart eşit taksitli krediye göre düşebilir; ancak vade sonunda tek seferde daha yüksek bir ödeme yapılır.</p></section>
+<section><h2>Banka planı farklı olabilir</h2><p>Balon ödeme oranı, vade, faiz ve ara dönem ödeme koşulları bankaya veya finansman ürününe göre değişebilir. Bu araç genel bir senaryo karşılaştırmasıdır.</p></section>
+<nav class="amount-links"><a href="/kredi-hesaplama/">Genel Kredi</a><a href="/konut-kredisi-hesaplama/">Konut Kredisi</a><a href="/tasit-kredisi-hesaplama/">Taşıt Kredisi</a></nav>
+</div>
+<footer>volimetre · <a href="/istatistikler/">istatistikler</a> · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer></main>
+<script>
+(function(){
+function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.max(0,Math.round(n||0)))}
+function num(id){var e=document.getElementById(id);return e?Number(e.value)||0:0}
+function calc(){var p=num('balloon-principal'),r=num('balloon-rate')/100,n=Math.max(1,num('balloon-term')),b=p*num('balloon-ratio')/100;var pvBalloon=b/Math.pow(1+r,n);var financed=Math.max(0,p-pvBalloon);var pay=r?financed*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):financed/n;document.getElementById('balloon-pay').textContent=money(pay)+'/ay';document.getElementById('balloon-final').textContent=money(b);document.getElementById('balloon-total').textContent=money(pay*n+b)}
+['balloon-principal','balloon-rate','balloon-term','balloon-ratio'].forEach(function(id){var e=document.getElementById(id);e&&e.addEventListener('input',calc);e&&e.addEventListener('change',calc)});calc();
+})();
+</script></body></html>

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/volimetre-mark.png" type="image/png">
+<title>Gelirime Göre Ne Kadar Kredi Alabilirim? | Volimetre</title>
+<meta name="description" content="Aylık net gelirinize ve mevcut borçlarınıza göre yaklaşık ne kadar kredi taksiti taşıyabileceğinizi ve örnek kredi tutarını hesaplayın.">
+<link rel="canonical" href="https://volimetre.com.tr/gelirime-gore-ne-kadar-kredi-alabilirim/">
+<link rel="stylesheet" href="/assets/volimetre.css">
+<link rel="stylesheet" href="/assets/seo-page.css">
+<link rel="stylesheet" href="/assets/special-calculators.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<main>
+<header><div class="brand"><a href="/" aria-label="Volimetre ana sayfa"><img src="/assets/logo-volimetre.png" alt="volimetre"></a></div><div class="tag">Kredi hesaplamanın en kısa yolu.</div></header>
+<div class="hero"><h1>Gelirime Göre Ne Kadar Kredi Alabilirim?</h1><p class="intro">Aylık net gelirinizi ve mevcut kredi/kart ödemelerinizi girin. Örnek bir borç servis oranına göre yaklaşık aylık kredi kapasitenizi görün.</p></div>
+<section class="tool-card"><div class="tool-grid">
+<div class="tool-field"><label for="income-net">Aylık net gelir</label><input id="income-net" type="number" min="0" step="1000" value="50000"></div>
+<div class="tool-field"><label for="income-debt">Mevcut aylık borç ödemesi</label><input id="income-debt" type="number" min="0" step="500" value="10000"></div>
+<div class="tool-field"><label for="income-ratio">Örnek borç servis oranı (%)</label><input id="income-ratio" type="number" min="10" max="80" step="5" value="50"></div>
+<div class="tool-field"><label for="income-term">Örnek vade</label><select id="income-term"><option>12</option><option selected>24</option><option>36</option></select></div>
+<div class="tool-field"><label for="income-rate">Aylık faiz (%)</label><input id="income-rate" type="number" min="0" step="0.05" value="4.29"></div>
+</div><div class="tool-result"><div class="tool-result-sub">Yaklaşık ek taksit kapasitesi</div><div class="tool-result-main" id="income-installment">₺0/ay</div><div class="tool-breakdown">
+<div class="tool-metric"><span>Yaklaşık kredi tutarı</span><strong id="income-loan">₺0</strong></div>
+<div class="tool-metric"><span>Toplam aylık borç yükü</span><strong id="income-total-debt">₺0</strong></div>
+</div></div></section>
+<div class="content">
+<section><h2>Gelire göre kredi hesabı nasıl yapılır?</h2><p>Bankalar gelir, mevcut borçlar, kredi notu, çalışma durumu ve ürün koşullarını birlikte değerlendirir. Bu araç yalnızca aylık gelirin belirli bir bölümünün toplam borç ödemelerine ayrıldığı basit bir kapasite senaryosu üretir.</p></section>
+<section><h2>Sonuç kesin kredi limiti değildir</h2><p>Gösterilen tutar banka onayı anlamına gelmez. Bankanın gelir belgesi, kredi notu, mevcut limitler ve yasal vade sınırları nedeniyle gerçek kullanılabilir kredi tutarı daha düşük veya farklı olabilir.</p></section>
+<nav class="amount-links" aria-label="İlgili hesaplamalar"><a href="/kredi-hesaplama/">Genel Kredi</a><a href="/ihtiyac-kredisi-hesaplama/">İhtiyaç Kredisi</a><a href="/butcem/kredi-odeyebilir-miyim/">Kredi Ödeyebilir miyim?</a></nav>
+</div>
+<footer>volimetre · <a href="/istatistikler/">istatistikler</a> · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer></main>
+<script>
+(function(){
+function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.max(0,Math.round(n||0)))}
+function annuityPrincipal(payment,r,n){r=(Number(r)||0)/100;n=Math.max(1,Number(n)||1);if(!r)return payment*n;var z=Math.pow(1+r,n);return payment*(z-1)/(r*z)}
+function n(id){var e=document.getElementById(id);return e?Number(e.value)||0:0}
+function calc(){var inc=n('income-net'),debt=n('income-debt'),ratio=n('income-ratio')/100,term=n('income-term'),rate=n('income-rate');var max=Math.max(0,inc*ratio-debt);document.getElementById('income-installment').textContent=money(max)+'/ay';document.getElementById('income-loan').textContent=money(annuityPrincipal(max,rate*1.30,term));document.getElementById('income-total-debt').textContent=money(debt+max)}
+['income-net','income-debt','income-ratio','income-term','income-rate'].forEach(function(id){var e=document.getElementById(id);e&&e.addEventListener('input',calc);e&&e.addEventListener('change',calc)});calc();
+})();
+</script></body></html>
