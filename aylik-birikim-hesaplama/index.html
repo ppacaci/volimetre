@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/assets/volimetre-mark.png" type="image/png">
+<title>Aylık Birikim Hesaplama | Ayda 10.000 TL Biriktirirsem? | Volimetre</title>
+<meta name="description" content="Ayda ne kadar biriktirirseniz yıllar sonra ne kadar paranız olur? Ham birikim, geçmiş 10 yıl altın ve TL mevduat getirisi ile enflasyon sonrası alım gücünü karşılaştırın.">
+<link rel="canonical" href="https://volimetre.com.tr/aylik-birikim-hesaplama/">
+<link rel="stylesheet" href="/assets/volimetre.css">
+<link rel="stylesheet" href="/assets/seo-page.css">
+<link rel="stylesheet" href="/assets/special-calculators.css">
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+.savings-results{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.savings-card{background:#fafafa;border:1px solid var(--line);border-radius:12px;padding:14px}
+.savings-card span{display:block;color:var(--muted);font-size:11px;margin-bottom:5px}
+.savings-card strong{display:block;font-size:21px;letter-spacing:-.35px}
+.savings-card small{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:5px}
+.savings-primary{background:#fff}
+.assumption{font-size:11px;color:var(--muted);line-height:1.55;margin-top:12px}
+@media(max-width:520px){.savings-results{grid-template-columns:1fr}.savings-card strong{font-size:19px}}
+</style>
+</head>
+<body>
+<main>
+<header><div class="brand"><a href="/" aria-label="Volimetre ana sayfa"><img src="/assets/logo-volimetre.png" alt="volimetre"></a></div><div class="tag">Bir rakamı değiştir, finansal etkisini anında gör.</div></header>
+
+<div class="hero">
+  <h1>Ayda 10.000 TL Biriktirirsem Ne Kadar Olur?</h1>
+  <p class="intro">Aylık birikim tutarınızı ve süreyi değiştirin. Ham birikimi; geçmiş 10 yılın Altın/TL, TL mevduat ve enflasyon verileriyle oluşan senaryolarla karşılaştırın.</p>
+</div>
+
+<section class="tool-card">
+  <div class="tool-grid">
+    <div class="tool-field">
+      <label for="monthly">Aylık birikim</label>
+      <input id="monthly" type="number" min="100" step="500" value="10000">
+    </div>
+    <div class="tool-field">
+      <label for="years">Süre (yıl)</label>
+      <input id="years" type="number" min="1" max="40" step="1" value="10">
+    </div>
+  </div>
+
+  <div class="savings-results" aria-live="polite">
+    <div class="savings-card savings-primary">
+      <span>Ham birikim</span>
+      <strong id="raw">₺0</strong>
+      <small>Getiri yok; sadece yatırdığınız toplam para.</small>
+    </div>
+    <div class="savings-card">
+      <span>Altın geçmişiyle senaryo</span>
+      <strong id="gold">₺0</strong>
+      <small>2016–2025 Altın/TL geometrik ortalama getirisi: %50,9/yıl.</small>
+    </div>
+    <div class="savings-card">
+      <span>TL mevduat geçmişiyle senaryo</span>
+      <strong id="deposit">₺0</strong>
+      <small>2016–2025 TL mevduat geometrik ortalama getirisi: %22,4/yıl.</small>
+    </div>
+    <div class="savings-card">
+      <span>Ham paranın bugünkü alım gücü</span>
+      <strong id="realcash">₺0</strong>
+      <small>2016–2025 TÜFE geometrik ortalaması yaklaşık %29,3/yıl varsayımıyla.</small>
+    </div>
+  </div>
+
+  <div class="tool-breakdown">
+    <div class="tool-metric"><span>Altın senaryosu · bugünkü alım gücü</span><strong id="gold-real">₺0</strong></div>
+    <div class="tool-metric"><span>Mevduat senaryosu · bugünkü alım gücü</span><strong id="deposit-real">₺0</strong></div>
+  </div>
+
+  <p class="assumption">Bu bir tahmin veya yatırım tavsiyesi değildir. Geleceğin geçmiş 10 yılın geometrik ortalamasına benzer ilerlediği varsayılan karşılaştırma senaryosudur. Vergi, stopaj, makas, komisyon ve ürün masrafları dahil değildir.</p>
+</section>
+
+<div class="content">
+<section>
+  <h2>Geçmiş 10 yılın verisi</h2>
+  <p>Altın ve TL mevduat getirileri Türkiye Finansal Okuryazarlık Platformu’nun 2016–2025 yıllık getiri serilerinden; enflasyon ise TÜİK yıl sonu TÜFE verilerinden alınmıştır.</p>
+  <div class="tablebox">
+    <table>
+      <thead><tr><th>Yıl</th><th>Altın/TL</th><th>TL mevduat</th><th>TÜFE</th></tr></thead>
+      <tbody>
+        <tr><td>2016</td><td>%31,67</td><td>%11,10</td><td>%8,53</td></tr>
+        <tr><td>2017</td><td>%19,97</td><td>%12,31</td><td>%11,92</td></tr>
+        <tr><td>2018</td><td>%38,19</td><td>%18,04</td><td>%20,30</td></tr>
+        <tr><td>2019</td><td>%33,83</td><td>%18,71</td><td>%11,84</td></tr>
+        <tr><td>2020</td><td>%55,13</td><td>%10,69</td><td>%14,60</td></tr>
+        <tr><td>2021</td><td>%71,56</td><td>%18,09</td><td>%36,08</td></tr>
+        <tr><td>2022</td><td>%40,86</td><td>%19,04</td><td>%64,27</td></tr>
+        <tr><td>2023</td><td>%80,23</td><td>%35,70</td><td>%64,77</td></tr>
+        <tr><td>2024</td><td>%52,44</td><td>%52,32</td><td>%44,38</td></tr>
+        <tr><td>2025</td><td>%104,00</td><td>%50,90</td><td>%30,89</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="source-note">Kaynaklar: <a href="https://www.finansalokuryazarlik.gov.tr/gecmis-getiri-verileri" target="_blank" rel="noopener noreferrer">Türkiye Finansal Okuryazarlık Platformu — Geçmiş Getiri Verileri</a> · <a href="https://veriportali.tuik.gov.tr/Bulten/Index?p=Tuketici-Fiyat-Endeksi-Aralik-2025-58294" target="_blank" rel="noopener noreferrer">TÜİK — TÜFE Aralık 2025</a>.</p>
+</section>
+
+<section>
+  <h2>Hesap nasıl çalışıyor?</h2>
+  <p>Ham sonuç, aylık birikim × ay sayısıdır. Altın ve mevduat senaryolarında geçmiş 10 yılın geometrik ortalama yıllık getirisi aylık bileşik orana çevrilir ve her ay yapılan düzenli birikime uygulanır.</p>
+  <p>“Bugünkü alım gücü” değerleri, gelecekte görünen nominal tutarı geçmiş 10 yıllık enflasyon ortalamasıyla bugünün parasına indirger. Aylık birikim tutarının yıllar boyunca sabit kaldığı varsayılır.</p>
+</section>
+
+<nav class="amount-links" aria-label="İlgili araçlar">
+  <a href="/butcem/ne-kadar-biriktirebilirim/">Ne Kadar Biriktirebilirim?</a>
+  <a href="/butcem/hedef-birikim/">Hedef Birikim</a>
+  <a href="/mevduat-faizi-hesaplama/">Mevduat Faizi</a>
+  <a href="/butcem/">Bütçem</a>
+</nav>
+</div>
+
+<footer>volimetre · <a href="/istatistikler/">istatistikler</a> · <a href="https://websitenyokmu.com.tr" target="_blank" rel="noopener noreferrer">websitenyokmu.com.tr</a> tarafından geliştirildi.</footer>
+</main>
+
+<script>
+(function(){
+  var ANNUAL_GOLD=0.509, ANNUAL_DEPOSIT=0.224, ANNUAL_INFLATION=0.293;
+  function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.max(0,Math.round(n||0)))}
+  function monthlyRate(annual){return Math.pow(1+annual,1/12)-1}
+  function futureMonthly(payment, months, annual){
+    var r=monthlyRate(annual);
+    if(!r) return payment*months;
+    return payment*((Math.pow(1+r,months)-1)/r);
+  }
+  function calc(){
+    var monthly=Math.max(0,Number(document.getElementById('monthly').value)||0);
+    var years=Math.max(1,Math.min(40,Number(document.getElementById('years').value)||1));
+    var months=Math.round(years*12);
+    var raw=monthly*months;
+    var gold=futureMonthly(monthly,months,ANNUAL_GOLD);
+    var dep=futureMonthly(monthly,months,ANNUAL_DEPOSIT);
+    var inflationFactor=Math.pow(1+ANNUAL_INFLATION,years);
+    document.getElementById('raw').textContent=money(raw);
+    document.getElementById('gold').textContent=money(gold);
+    document.getElementById('deposit').textContent=money(dep);
+    document.getElementById('realcash').textContent=money(raw/inflationFactor);
+    document.getElementById('gold-real').textContent=money(gold/inflationFactor);
+    document.getElementById('deposit-real').textContent=money(dep/inflationFactor);
+  }
+  ['monthly','years'].forEach(function(id){
+    var e=document.getElementById(id);
+    e.addEventListener('input',calc);
+    e.addEventListener('change',calc);
+  });
+  calc();
+})();
+</script>
+</body>
+</html>
