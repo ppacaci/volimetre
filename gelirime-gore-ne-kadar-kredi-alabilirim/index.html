@@ -42,4 +42,4 @@ function n(id){var e=document.getElementById(id);return e?Number(e.value)||0:0}
 function calc(){var inc=n('income-net'),debt=n('income-debt'),ratio=n('income-ratio')/100,term=n('income-term'),rate=n('income-rate');var max=Math.max(0,inc*ratio-debt);document.getElementById('income-installment').textContent=money(max)+'/ay';document.getElementById('income-loan').textContent=money(annuityPrincipal(max,rate*1.30,term));document.getElementById('income-total-debt').textContent=money(debt+max)}
 ['income-net','income-debt','income-ratio','income-term','income-rate'].forEach(function(id){var e=document.getElementById(id);e&&e.addEventListener('input',calc);e&&e.addEventListener('change',calc)});calc();
 })();
-</script></body></html>
+</script><script src="/assets/site-shell.js" defer></script></body></html>

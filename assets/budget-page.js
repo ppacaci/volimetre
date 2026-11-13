@@ -1,5 +1,7 @@
 (function(){
 'use strict';
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;var s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+loadSiteShell();
 var B=window.VolimetreBudget,app=document.getElementById('budget-app');if(!B||!app)return;
 var tool=app.dataset.tool||'main';
 function el(tag,cls,text){var x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x}

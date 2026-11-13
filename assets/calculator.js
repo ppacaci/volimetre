@@ -1,5 +1,8 @@
 (function(){
 'use strict';
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;var s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+function loadRegulations(done){if(window.VolimetreRegulations){done();return}var old=document.querySelector('script[src="/assets/regulations.js"]');if(old){old.addEventListener('load',done,{once:true});return}var s=document.createElement('script');s.src='/assets/regulations.js';s.onload=done;document.head.appendChild(s)}
+function init(){
 function loadVercelAnalytics(){
   if(window.__volimetreAnalyticsLoaded)return;
   window.__volimetreAnalyticsLoaded=true;
@@ -16,6 +19,7 @@ function loadBudgetCore(){
 }
 loadBudgetCore();
 
+var VR=window.VolimetreRegulations||{};
 var app=document.getElementById('app');
 if(!app)return;
 
@@ -55,40 +59,22 @@ function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currenc
 function shortMoney(n){if(n>=1000000){var m=n/1000000;return (Number.isInteger(m)?m:m.toFixed(2).replace(/0+$/,'').replace(/\.$/,'').replace('.',','))+' M'}return Math.round(n/1000)+' B'}
 function rateText(r){return '%'+Number(r).toFixed(2).replace('.',',')}
 function pay(p,r,n){
-  var mr=r/100;
-  if(mode==='consumer'||mode==='vehicle'||mode==='togg')mr*=1.30;
-  else if(mode==='business')mr*=1.05;
+  var mr=r/100,t=VR.taxes||{};
+  if(mode==='consumer'||mode==='vehicle'||mode==='togg'){var x=t.consumer||{bsmv:15,kkdf:15};mr*=1+((x.bsmv||0)+(x.kkdf||0))/100}
+  else if(mode==='business'){var b=t.business||{bsmv:5,kkdf:0};mr*=1+((b.bsmv||0)+(b.kkdf||0))/100}
   if(mr===0)return p/n;
   var z=Math.pow(1+mr,n);
   return p*mr*z/(z-1);
 }
 function consumerMaxTerm(a){
-  if(a<=125000)return 36;
-  if(a<=250000)return 24;
+  var tiers=(VR.consumerLoan&&VR.consumerLoan.tiers)||[{max:125000,maxTerm:36},{max:250000,maxTerm:24},{max:null,maxTerm:12}];
+  for(var i=0;i<tiers.length;i++)if(tiers[i].max===null||a<=tiers[i].max)return tiers[i].maxTerm;
   return 12;
 }
-function consumerCosts(a){
-  var allocation=a*.005;
-  var allocationTax=allocation*.15;
-  return {allocation:allocation,allocationTax:allocationTax,total:allocation+allocationTax};
-}
-function vehicleCosts(a){
-  var allocation=a*.005;
-  var allocationTax=allocation*.15;
-  var pledge=350.92;
-  return {allocation:allocation,allocationTax:allocationTax,pledge:pledge,total:allocation+allocationTax+pledge};
-}
-function businessCosts(a){
-  var service=a*.005;
-  var serviceTax=service*.05;
-  return {service:service,serviceTax:serviceTax,total:service+serviceTax};
-}
-function mortgageCosts(a){
-  var allocation=a*.005;
-  var appraisal=28202;
-  var mortgage=3600;
-  return {allocation:allocation,appraisal:appraisal,mortgage:mortgage,total:allocation+appraisal+mortgage};
-}
+function consumerCosts(a){var t=VR.taxes||{},pct=(t.allocationFeePct==null?0.5:t.allocationFeePct)/100,tax=(t.allocationFeeBsmv==null?15:t.allocationFeeBsmv)/100;var allocation=a*pct,allocationTax=allocation*tax;return {allocation:allocation,allocationTax:allocationTax,total:allocation+allocationTax};}
+function vehicleCosts(a){var t=VR.taxes||{},pct=(t.allocationFeePct==null?0.5:t.allocationFeePct)/100,tax=(t.allocationFeeBsmv==null?15:t.allocationFeeBsmv)/100;var allocation=a*pct,allocationTax=allocation*tax,pledge=(VR.estimates&&VR.estimates.vehiclePledge)||350.92;return {allocation:allocation,allocationTax:allocationTax,pledge:pledge,total:allocation+allocationTax+pledge};}
+function businessCosts(a){var t=VR.taxes||{},pct=(t.allocationFeePct==null?0.5:t.allocationFeePct)/100,b=t.business||{bsmv:5};var service=a*pct,serviceTax=service*((b.bsmv||5)/100);return {service:service,serviceTax:serviceTax,total:service+serviceTax};}
+function mortgageCosts(a){var t=VR.taxes||{},pct=(t.allocationFeePct==null?0.5:t.allocationFeePct)/100,e=VR.estimates||{};var allocation=a*pct,appraisal=e.mortgageAppraisal||28202,mortgage=e.mortgageRegistration||3600;return {allocation:allocation,appraisal:appraisal,mortgage:mortgage,total:allocation+appraisal+mortgage};}
 function btn(text,cls){var b=document.createElement('button');b.type='button';b.textContent=text;b.className=cls||'choice';return b}
 function uniq(arr){return Array.from(new Set(arr.filter(function(v){return Number.isFinite(v)&&v>0}).map(function(v){return +v.toFixed(2)}))).sort(function(a,b){return a-b})}
 
@@ -375,4 +361,7 @@ function render(){
 }
 
 render();
+}
+loadSiteShell();
+loadRegulations(init);
 })();
