@@ -1,5 +1,8 @@
 (function(){
 'use strict';
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;var s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+function loadRegulations(done){if(window.VolimetreRegulations){done();return}var old=document.querySelector('script[src="/assets/regulations.js"]');if(old){old.addEventListener('load',done,{once:true});return}var s=document.createElement('script');s.src='/assets/regulations.js';s.onload=done;document.head.appendChild(s)}
+function init(){
 function loadVercelAnalytics(){
   if(window.__volimetreAnalyticsLoaded)return;
   window.__volimetreAnalyticsLoaded=true;
@@ -12,6 +15,7 @@ function loadVercelAnalytics(){
 loadVercelAnalytics();
 
 
+var VR=window.VolimetreRegulations||{};
 var app=document.getElementById('deposit-app');
 if(!app)return;
 
@@ -70,15 +74,13 @@ function addYearsClamped(date,years){
   return d;
 }
 function stopajRate(days){
-  var start=new Date();
-  start=new Date(start.getFullYear(),start.getMonth(),start.getDate());
-  var maturity=new Date(start);
-  maturity.setDate(maturity.getDate()+days);
-  var sixMonths=addMonthsClamped(start,6);
-  var oneYear=addYearsClamped(start,1);
-  if(maturity<=sixMonths)return 17.5;
-  if(maturity<=oneYear)return 15;
-  return 10;
+  var start=new Date();start=new Date(start.getFullYear(),start.getMonth(),start.getDate());
+  var maturity=new Date(start);maturity.setDate(maturity.getDate()+days);
+  var sixMonths=addMonthsClamped(start,6),oneYear=addYearsClamped(start,1);
+  var tiers=(VR.deposit&&VR.deposit.stopaj)||[{maxMonths:6,rate:17.5},{maxMonths:12,rate:15},{maxMonths:null,rate:10}];
+  if(maturity<=sixMonths)return tiers[0].rate;
+  if(maturity<=oneYear)return tiers[1].rate;
+  return tiers[2].rate;
 }
 function calc(s){
   var base=daysInCalculationYear();
@@ -238,4 +240,7 @@ function render(){
 }
 
 render();
+}
+loadSiteShell();
+loadRegulations(init);
 })();

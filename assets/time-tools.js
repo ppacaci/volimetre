@@ -56,8 +56,8 @@ function newyear(box){
  render(box,d+' gün kaldı',y+' yılı '+fmt(t)+' başlıyor.',[[d,'gün'],[Math.floor(d/7),'tam hafta'],[d*24,'saat']]);
 }
 function weekend(box){
- const now=atMidnight(new Date()),dow=now.getDay();let add=dow===0?6:dow===6?0:6-dow;const t=new Date(now);t.setDate(t.getDate()+add);
- if(add===0)render(box,'Bugün hafta sonu','Bugün Cumartesi.',[[0,'gün'],[0,'saat'],[1,'hafta sonu günü']]);
+ const now=atMidnight(new Date()),dow=now.getDay();let add=(dow===0||dow===6)?0:6-dow;const t=new Date(now);t.setDate(t.getDate()+add);
+ if(add===0)render(box,'Bugün hafta sonu',dow===0?'Bugün Pazar.':'Bugün Cumartesi.',[[0,'gün'],[0,'saat'],[1,'hafta sonu günü']]);
  else render(box,add+' gün kaldı','Cumartesi: '+fmt(t),[[add,'gün'],[add*24,'saat'],[Math.max(0,5-dow),'iş günü']]);
 }
 function monthend(box){

@@ -40,4 +40,4 @@ function num(id){var e=document.getElementById(id);return e?Number(e.value)||0:0
 function calc(){var p=num('balloon-principal'),r=num('balloon-rate')/100,n=Math.max(1,num('balloon-term')),b=p*num('balloon-ratio')/100;var pvBalloon=b/Math.pow(1+r,n);var financed=Math.max(0,p-pvBalloon);var pay=r?financed*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1):financed/n;document.getElementById('balloon-pay').textContent=money(pay)+'/ay';document.getElementById('balloon-final').textContent=money(b);document.getElementById('balloon-total').textContent=money(pay*n+b)}
 ['balloon-principal','balloon-rate','balloon-term','balloon-ratio'].forEach(function(id){var e=document.getElementById(id);e&&e.addEventListener('input',calc);e&&e.addEventListener('change',calc)});calc();
 })();
-</script></body></html>
+</script><script src="/assets/site-shell.js" defer></script></body></html>

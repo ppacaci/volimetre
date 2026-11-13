@@ -1,5 +1,7 @@
 (function(){
 'use strict';
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;var s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+loadSiteShell();
 function money(n){return new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(Math.round(Number(n)||0))}
 function annuity(p,r,n){p=Number(p)||0;r=(Number(r)||0)/100;n=Math.max(1,Math.round(Number(n)||1));if(!r)return p/n;var z=Math.pow(1+r,n);return p*r*z/(z-1)}
 function num(id){var e=document.getElementById(id);return e?Number(e.value)||0:0}

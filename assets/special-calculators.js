@@ -1,5 +1,8 @@
 (function(){
 'use strict';
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;var s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+function loadRegulations(done){if(window.VolimetreRegulations){done();return}var old=document.querySelector('script[src="/assets/regulations.js"]');if(old){old.addEventListener('load',done,{once:true});return}var s=document.createElement('script');s.src='/assets/regulations.js';s.onload=done;document.head.appendChild(s)}
+function init(){
 function loadBudgetCore(){
   if(window.VolimetreBudget||document.querySelector('script[data-volimetre-budget]'))return;
   var s=document.createElement('script');s.src='/assets/budget-core.js';s.defer=true;s.dataset.volimetreBudget='1';document.head.appendChild(s);
@@ -29,9 +32,12 @@ function annuity(p,r,n){
   var z=Math.pow(1+r,n);
   return p*r*z/(z-1);
 }
+function cardMinimumThreshold(){return (window.VolimetreRegulations&&window.VolimetreRegulations.cardMinimum&&window.VolimetreRegulations.cardMinimum.threshold)||100000}
+function cardMinimumLowRate(){return (window.VolimetreRegulations&&window.VolimetreRegulations.cardMinimum&&window.VolimetreRegulations.cardMinimum.lowRate)||20}
+function cardMinimumHighRate(){return (window.VolimetreRegulations&&window.VolimetreRegulations.cardMinimum&&window.VolimetreRegulations.cardMinimum.highRate)||40}
 function cardRate(debt,late){
-  if(debt<30000)return late?3.55:3.25;
-  if(debt<=180000)return late?4.05:3.75;
+  var b=(window.VolimetreRegulations&&window.VolimetreRegulations.cardInterest&&window.VolimetreRegulations.cardInterest.bands)||[{max:30000,contractual:3.25,late:3.55},{max:180000,contractual:3.75,late:4.05},{max:null,contractual:4.25,late:4.55}];
+  for(var i=0;i<b.length;i++){var hit=b[i].max===null||(i===0?debt<b[i].max:debt<=b[i].max);if(hit)return late?b[i].late:b[i].contractual;}
   return late?4.55:4.25;
 }
 
@@ -46,7 +52,7 @@ if(document.getElementById('promo-new')){
 
 if(document.getElementById('card-limit')){
   function minimum(){
-    var limit=num('card-limit'),debt=num('card-debt'),rate=limit<=50000?20:40,min=debt*rate/100;
+    var limit=num('card-limit'),debt=num('card-debt'),rate=limit<=cardMinimumThreshold()?cardMinimumLowRate():cardMinimumHighRate(),min=debt*rate/100;
     set('minimum-main',money(min));set('minimum-rate','%'+rate);set('minimum-remain',money(Math.max(0,debt-min)));set('minimum-debt',money(debt));
   }
   bind(['card-limit','card-debt'],minimum,'card-minimum');
@@ -105,6 +111,8 @@ if(document.getElementById('target-debt')){
 }
 
 if(document.getElementById('restruct-debt')){
+  var rr=document.getElementById('restruct-rate'),refRate=window.VolimetreRegulations&&window.VolimetreRegulations.cardInterest&&window.VolimetreRegulations.cardInterest.referenceRate;
+  if(rr&&refRate!=null)rr.value=Number(refRate).toFixed(2);
   function restruct(){
     var p=num('restruct-debt'),n=Math.max(1,num('restruct-term')),r=Math.max(0,num('restruct-rate')),monthly=annuity(p,r,n),total=monthly*n;
     set('restruct-main',money(monthly)+'/ay');set('restruct-total',money(total));set('restruct-cost',money(total-p));set('restruct-term-out',n+' ay');
@@ -124,7 +132,7 @@ if(document.getElementById('cash-price')){
 
 function attachBudgetAction(){
   var cfg=null;
-  if(document.getElementById('card-limit'))cfg={label:'Kredi kartı ödemesi',key:'card-minimum',amount:function(){var limit=num('card-limit'),debt=num('card-debt');return debt*(limit<=50000?20:40)/100}};
+  if(document.getElementById('card-limit'))cfg={label:'Kredi kartı ödemesi',key:'card-minimum',amount:function(){var limit=num('card-limit'),debt=num('card-debt');return debt*(limit<=cardMinimumThreshold()?cardMinimumLowRate():cardMinimumHighRate())/100}};
   if(document.getElementById('restruct-debt'))cfg={label:'Kart yapılandırma taksiti',key:'card-restructure',amount:function(){return annuity(num('restruct-debt'),num('restruct-rate'),Math.max(1,num('restruct-term')))}};
   if(document.getElementById('payoff-debt'))cfg={label:'Kredi kartı aylık ödeme planı',key:'card-payoff',amount:function(){return num('payoff-payment')}};
   if(document.getElementById('target-debt'))cfg={label:'Kredi kartı hedef aylık ödeme',key:'card-payment-target',amount:function(){return annuity(num('target-debt'),num('target-rate'),Math.max(1,num('target-months')))}};
@@ -172,4 +180,7 @@ function enhanceSteppers(){
   });
 }
 enhanceSteppers();
+}
+loadSiteShell();
+loadRegulations(init);
 })();
