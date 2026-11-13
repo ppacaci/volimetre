@@ -1,4 +1,6 @@
 (()=>{
+function loadSiteShell(){if(window.__volimetreShellLoading||document.querySelector('script[src="/assets/site-shell.js"]'))return;window.__volimetreShellLoading=1;const s=document.createElement('script');s.src='/assets/site-shell.js';s.defer=true;document.head.appendChild(s)}
+loadSiteShell();
 const DAY=86400000;
 const qs=(s,r=document)=>r.querySelector(s);
 const pad=n=>String(n).padStart(2,'0');
