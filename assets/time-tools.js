@@ -71,7 +71,7 @@ function dayofyear(box){
  const bar=qs('[data-progress]',box);if(bar)bar.style.width=pct+'%';
 }
 function salary(box){
- const input=qs('[data-salary-day]',box);const saved=localStorage.getItem('volimetre_salary_day');if(saved&&!input.value)input.value=saved;
+ const input=qs('[data-salary-day]',box);const saved=localStorage.getItem('volimetre_salary_day');if(saved)input.value=saved;
  const run=()=>{const day=Math.min(31,Math.max(1,Number(input.value)||1));localStorage.setItem('volimetre_salary_day',day);const now=new Date(),t=nextDateForDay(day),d=wholeDays(now,t);
  render(box,d+' gün kaldı','Sıradaki maaş günü: '+fmt(t),[[d,'gün'],[Math.floor(d/7),'tam hafta'],[d*24,'saat']]);};
  input.addEventListener('input',run);qs('[data-run]',box)?.addEventListener('click',run);run();
