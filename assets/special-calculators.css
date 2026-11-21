@@ -35,3 +35,10 @@
   .step-button{font-size:19px}
   .step-control input,.step-control select{font-size:15px;padding:12px 6px!important}
 }
+
+.cash-hub-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0 8px}
+.cash-hub-link{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none;color:inherit}
+.cash-hub-link strong{display:block;font-size:14px;margin-bottom:5px}
+.cash-hub-link span{display:block;font-size:11px;line-height:1.45;color:var(--muted)}
+.cash-hub-link:hover{border-color:#bdbdb7}.cash-live-table{margin-top:16px}
+@media(max-width:560px){.cash-hub-grid{grid-template-columns:1fr}}
