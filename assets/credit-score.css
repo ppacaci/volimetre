@@ -1,0 +1,12 @@
+.risk-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin:0 0 12px}
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.risk-field{display:flex;flex-direction:column;gap:6px}.risk-field.full{grid-column:1/-1}
+.risk-field label{font-size:11px;color:var(--muted);font-weight:600}.risk-field input,.risk-field select{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:12px 11px;font:inherit;font-size:14px}
+.risk-result{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}.risk-score{font-size:42px;font-weight:800;letter-spacing:-1px}.risk-band{font-size:15px;font-weight:700;margin-top:2px}.risk-sub{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.55}
+.risk-bars{margin-top:16px}.risk-bar{margin:10px 0}.risk-bar-head{display:flex;justify-content:space-between;font-size:11px;color:#555;margin-bottom:5px}.risk-track{height:7px;background:#eee;border-radius:99px;overflow:hidden}.risk-fill{height:100%;background:#555;border-radius:99px}
+.risk-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.risk-metric{background:#fafafa;border:1px solid var(--line);border-radius:10px;padding:11px}.risk-metric span{display:block;font-size:10px;color:var(--muted);margin-bottom:3px}.risk-metric strong{font-size:14px}
+.risk-disclaimer{margin:14px 0 0;padding:12px 13px;border:1px solid var(--line);background:#fafafa;border-radius:10px;font-size:11px;line-height:1.55;color:#555}.risk-disclaimer strong{display:block;margin-bottom:3px}
+.risk-tips{margin-top:14px;font-size:12px;line-height:1.6;color:#555}.risk-tips div+div{margin-top:5px}
+.risk-band-table td:last-child,.risk-band-table th:last-child{text-align:left}
+.risk-compare{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.risk-hub-links{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:22px 0}.risk-hub-link{display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;text-decoration:none}.risk-hub-link strong{display:block;font-size:14px;margin-bottom:5px}.risk-hub-link span{display:block;font-size:11px;color:var(--muted);line-height:1.45}
+@media(max-width:560px){.risk-grid,.risk-metrics,.risk-compare,.risk-hub-links{grid-template-columns:1fr}.risk-field.full{grid-column:auto}.risk-card{padding:18px}.risk-score{font-size:36px}}

@@ -10,11 +10,20 @@ window.VolimetreRegulations={
     tcmbCard:{name:'TCMB Kredi Kartı Azami Faiz Oranları',url:'https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB%2BTR/Main%2BMenu/Istatistikler/Bankacilik%2BVerileri/Kredi_Karti_Islemlerinde_Uygulanacak_Azami_Faiz_Oranlari'},
     gibDeposit:{name:'GİB Geçici 67 / Mevduat Tevkifat Oranları',url:'https://gib.gov.tr/mevzuat/kanun/433/bkk/1237'},
     goldBist:{name:'Borsa İstanbul Kıymetli Madenler Piyasası',url:'https://www.borsaistanbul.com/piyasalar/kiymetli-madenler-ve-kiymetli-taslar-piyasasi/kiymetli-madenler-piyasasi'},
-    goldMint:{name:'Darphane Cumhuriyet Altını Standartları',url:'https://www.darphane.gov.tr/cumhuriyet-altini-uretimi'}
+    goldMint:{name:'Darphane Cumhuriyet Altını Standartları',url:'https://www.darphane.gov.tr/cumhuriyet-altini-uretimi'},
+    findeks:{name:'Findeks Kredi Notu ve Risk Raporu',url:'https://www.findeks.com/urunler/risk-raporu'},
+    findeksGuide:{name:'Findeks Risk Raporu Kılavuzu',url:'https://www.findeks.com/Resources/ContentFile/3811/findeks-risk-raporu-kilavuzu.pdf'}
   },
   cardMinimum:{threshold:100000,lowRate:20,highRate:40,decision:'11581',decisionDate:'2026-10-01'},
   cashAdvance:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',bsmv:15,kkdf:15},
   gold:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',ounceGram:31.1034768},
+  creditScore:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',range:[1,1900],weights:{payment:45,debt:32,intensity:18,newProducts:5},bands:[
+    {max:969,name:'Kritik'},
+    {max:1149,name:'Gelişime Açık'},
+    {max:1469,name:'Dengeli'},
+    {max:1719,name:'Güvenli'},
+    {max:1900,name:'Prestijli'}
+  ]},
   cardInterest:{
     effective:'2026-11-01',
     referenceRate:3.11,
