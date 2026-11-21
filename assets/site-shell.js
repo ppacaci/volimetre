@@ -63,7 +63,8 @@ function trust(){
   if(!finance||document.querySelector('.source-card'))return;
   ensureRegs(function(){
     var R=window.VolimetreRegulations,src=sourceFor(path,R),box=document.createElement('section');box.className='source-card';
-    box.innerHTML='<div><strong>Kaynak ve güncellik</strong><span>Son doğrulama: '+R.verifiedAt+'</span></div>'+
+    var verified=(/\/(nakit-avans|taksitli-nakit-avans)/.test(path)&&R.cashAdvance&&R.cashAdvance.verifiedAt)||R.verifiedAt;
+    box.innerHTML='<div><strong>Kaynak ve güncellik</strong><span>Son doğrulama: '+verified+'</span></div>'+
       '<p>Hesaplama varsayımları düzenli olarak resmî kaynaklarla kontrol edilir. Banka teklifi ve kişisel onay sonucu değildir.</p>'+
       '<div class="source-links"><a href="'+src.url+'" '+(src.url.charAt(0)==='/'?'':'target="_blank" rel="noopener noreferrer"')+'>'+src.name+'</a><a href="/hesaplama-yontemi-kaynaklar/">Hesaplama yöntemi</a><a href="/iletisim/">Hata bildir</a></div>';
     var faq=document.querySelector('.geo-faq'),f=document.querySelector('footer');(faq||f)?.insertAdjacentElement('beforebegin',box);

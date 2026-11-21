@@ -11,6 +11,7 @@ window.VolimetreRegulations={
     gibDeposit:{name:'GİB Geçici 67 / Mevduat Tevkifat Oranları',url:'https://gib.gov.tr/mevzuat/kanun/433/bkk/1237'}
   },
   cardMinimum:{threshold:100000,lowRate:20,highRate:40,decision:'11581',decisionDate:'2026-10-01'},
+  cashAdvance:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',bsmv:15,kkdf:15},
   cardInterest:{
     effective:'2026-11-01',
     referenceRate:3.11,
@@ -30,6 +31,7 @@ window.VolimetreRegulations={
   },
   taxes:{
     consumer:{bsmv:15,kkdf:15},
+    cashAdvance:{bsmv:15,kkdf:15},
     vehicle:{bsmv:15,kkdf:15},
     business:{bsmv:5,kkdf:0},
     allocationFeePct:0.5,
