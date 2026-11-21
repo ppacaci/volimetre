@@ -8,10 +8,13 @@ window.VolimetreRegulations={
     bddkCardMinimum:{name:'BDDK 11581 (01.10.2026)',url:'https://www.bddk.org.tr/Mevzuat/DokumanGetir/1349'},
     bddkConsumer:{name:'BDDK 11152 (13.02.2025)',url:'https://www.bddk.org.tr/Mevzuat/EkGetir/1210?ekId=259'},
     tcmbCard:{name:'TCMB Kredi Kartı Azami Faiz Oranları',url:'https://www.tcmb.gov.tr/wps/wcm/connect/TR/TCMB%2BTR/Main%2BMenu/Istatistikler/Bankacilik%2BVerileri/Kredi_Karti_Islemlerinde_Uygulanacak_Azami_Faiz_Oranlari'},
-    gibDeposit:{name:'GİB Geçici 67 / Mevduat Tevkifat Oranları',url:'https://gib.gov.tr/mevzuat/kanun/433/bkk/1237'}
+    gibDeposit:{name:'GİB Geçici 67 / Mevduat Tevkifat Oranları',url:'https://gib.gov.tr/mevzuat/kanun/433/bkk/1237'},
+    goldBist:{name:'Borsa İstanbul Kıymetli Madenler Piyasası',url:'https://www.borsaistanbul.com/piyasalar/kiymetli-madenler-ve-kiymetli-taslar-piyasasi/kiymetli-madenler-piyasasi'},
+    goldMint:{name:'Darphane Cumhuriyet Altını Standartları',url:'https://www.darphane.gov.tr/cumhuriyet-altini-uretimi'}
   },
   cardMinimum:{threshold:100000,lowRate:20,highRate:40,decision:'11581',decisionDate:'2026-10-01'},
   cashAdvance:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',bsmv:15,kkdf:15},
+  gold:{verifiedAt:'21 Kasım 2026',verifiedISO:'2026-11-21',ounceGram:31.1034768},
   cardInterest:{
     effective:'2026-11-01',
     referenceRate:3.11,
