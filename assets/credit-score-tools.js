@@ -54,10 +54,10 @@ function init(){
     q('[data-diff-note]',box).textContent='Bu fark resmi Findeks değişimi değildir; aynı Volimetre tahmin modelinin iki senaryosu arasındaki farktır.';
   })}
   else if(type==='capacity'){bind(function(){
-    var score=clamp(n('[data-input-score]',box),1,1900),income=n('[data-income]',box),existing=n('[data-existing]',box),ratio=clamp(n('[data-ratio]',box),0,100)/100,rate=n('[data-rate]',box)*1.30/100,term=Math.max(1,n('[data-term]',box)),payment=Math.max(0,income*ratio-existing),principal=rate===0?payment*term:payment*(1-Math.pow(1+rate,-term))/rate;
+    var score=clamp(n('[data-input-score]',box),1,1900),income=n('[data-income]',box),existing=n('[data-existing]',box),ratio=clamp(n('[data-ratio]',box),0,100)/100,rate=n('[data-rate]',box)*1.30/100,term=Math.max(1,n('[data-term]',box)),payment=Math.max(0,income*ratio-existing),principal=rate===0?payment*term:payment*(1-Math.pow(1+rate,-term))/rate,capLimit=Infinity,note='Ödeme kapasitesi hesabı; banka onayı değildir.';if(term>24){capLimit=125000;note='36 aya kadar genel vade diliminde tutar 125.000 TL ile sınırlıdır.'}else if(term>12){capLimit=250000;note='24 aya kadar genel vade diliminde tutar 250.000 TL ile sınırlıdır.'}principal=Math.min(principal,capLimit);
     q('[data-score-band]',box).textContent=score+' · '+band(score);
     q('[data-payment-cap]',box).textContent=new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(payment);
-    q('[data-principal]',box).textContent=new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(principal);
+    q('[data-principal]',box).textContent=new Intl.NumberFormat('tr-TR',{style:'currency',currency:'TRY',maximumFractionDigits:0}).format(principal);var noteEl=q('[data-cap-note]',box);if(noteEl)noteEl.textContent=note;
   })}
  });
 }
