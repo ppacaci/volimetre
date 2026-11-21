@@ -13,7 +13,7 @@ function addJson(data,id){
   var s=document.createElement('script');s.type='application/ld+json';if(id)s.id=id;s.textContent=JSON.stringify(data);document.head.appendChild(s);
 }
 function category(){
-  if(path.indexOf('/kredi-karti-')===0||path.indexOf('nakit-avans')!==-1||path.indexOf('/pesin-mi-taksit-')===0)return [path.indexOf('nakit-avans')!==-1?'Nakit Avans Araçları':'Kredi Kartı Araçları',path.indexOf('nakit-avans')!==-1?'/nakit-avans-araclari/':'/kredi-karti-hesaplama/'];
+  if(path.indexOf('/kredi-karti-')===0||path.indexOf('/nakit-avans-')===0||path.indexOf('/pesin-mi-taksit-')===0)return ['Kredi Kartı Araçları','/kredi-karti-hesaplama/'];
   if(path.indexOf('/butcem')===0)return ['Bütçem','/butcem/'];
   if(/^\/(zaman-hesaplama|kac-gun-|kac-saat-|iki-tarih-arasi|yilbasina-|hafta-sonuna-|ayin-bitmesine-|bugun-yilin-|maasa-|dogum-gunume-|son-odeme-tarihine-)/.test(path))return ['Zaman Araçları','/zaman-hesaplama/'];
   if(/^\/(hakkimizda|hesaplama-yontemi-kaynaklar|guncelleme-politikasi|gizlilik|iletisim)/.test(path))return ['Volimetre','/'];
@@ -51,7 +51,7 @@ function ensureRegs(cb){
 function sourceFor(p,R){
   var S=R.sources;
   if(p.indexOf('/kredi-karti-asgari-odeme')===0)return S.bddkCardMinimum;
-  if(p.indexOf('/kredi-karti-')===0||p.indexOf('nakit-avans')!==-1)return S.tcmbCard;
+  if(p.indexOf('/kredi-karti-')===0||p.indexOf('/nakit-avans-')===0)return S.tcmbCard;
   if(p.indexOf('/mevduat-faizi')===0)return S.gibDeposit;
   if(p.indexOf('/ihtiyac-kredisi')===0)return S.bddkConsumer;
   if(p.indexOf('/tasit-kredisi')===0||p.indexOf('/togg-kredi')===0)return S.bddk;
@@ -63,7 +63,7 @@ function trust(){
   if(!finance||document.querySelector('.source-card'))return;
   ensureRegs(function(){
     var R=window.VolimetreRegulations,src=sourceFor(path,R),box=document.createElement('section');box.className='source-card';
-    var verified=(path.indexOf('nakit-avans')!==-1&&R.cashAdvance&&R.cashAdvance.verifiedAt)||R.verifiedAt;
+    var verified=(/\/(nakit-avans|taksitli-nakit-avans)/.test(path)&&R.cashAdvance&&R.cashAdvance.verifiedAt)||R.verifiedAt;
     box.innerHTML='<div><strong>Kaynak ve güncellik</strong><span>Son doğrulama: '+verified+'</span></div>'+
       '<p>Hesaplama varsayımları düzenli olarak resmî kaynaklarla kontrol edilir. Banka teklifi ve kişisel onay sonucu değildir.</p>'+
       '<div class="source-links"><a href="'+src.url+'" '+(src.url.charAt(0)==='/'?'':'target="_blank" rel="noopener noreferrer"')+'>'+src.name+'</a><a href="/hesaplama-yontemi-kaynaklar/">Hesaplama yöntemi</a><a href="/iletisim/">Hata bildir</a></div>';
